@@ -10,11 +10,11 @@ let y = 15;
 let fild = '';
 for (let i = 0; i<x; i++){
 	fild += '<div class="col">';
-	// biom[i] = [];
+	biom[i] = [];
 	for (let j=0; j<y; j++){
 		fild +=`<i></i>`;
 		// fild +=`<i>${i}-${j}</i>`;
-		// biom[i][j] = 0;
+		biom[i][j] = 0;
 	}
 	fild += '</div>'
 }
@@ -25,15 +25,12 @@ biom_box.innerHTML = fild;
 
 box = document.querySelector('.box');
 let biom_columns = document.querySelectorAll('.biom .col');
-console.log(box);
-// console.table(biom);
-console.log(biom_box);
+// console.log(box);
+// console.log(biom_box);
 // console.log(biom_box.children);
-console.log(biom_columns[0].children);
+// console.log(biom_columns[0].children);
 
-// biom[0][0] = 1;
 for (let i = 0; i<x; i++){
-	biom[i] = [];
 	for (let j=0; j<5; j++){
 		biom[i][j] = Math.round(Math.random()*6);
 		if(biom[i][j]){
@@ -56,8 +53,6 @@ biom_box.onclick = (e)=>{
 				// e.target.style.background = 'red';
 				e.target.classList.add('del');
 				exit = true;
-				// console.log(e.target);
-				// console.log(biom_columns[i]);
 				let teg_i = document.createElement('i');
 				biom_columns[i].appendChild(teg_i);
 				setTimeout(()=>{
@@ -71,6 +66,12 @@ biom_box.onclick = (e)=>{
 		i++;
 	}
 	console.log('i = ', i, '; j = ', j);
-	console.log(biom_box);
+	// console.log(biom_box);
+
+	for (let k = j; k<y; k++){
+		biom[i][k] = biom[i][k+1];
+		if(biom[i][k]==undefined) biom[i][k] = 0;
+	}
+	console.table(biom);
 }
 console.log(biom_box);

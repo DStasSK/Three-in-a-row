@@ -8,11 +8,12 @@ body{
 	width:100vw;
 	height:100vh;
 	flex-direction:column;
+	background:#74c692;
 }
 .start{
 	padding:10px 15px;
 	font-size:25px;
-	background:#ccc;
+	background:#eee;
 	border-radius:6px;
 	margin:10px 0;
 	letter-spacing:2px;
@@ -88,6 +89,7 @@ i{
 /* .box i:nth-child(1){height:10px; width:10px;}
 .box i:nth-child(2){height:20px; width:20px;} */
 
+.el0{background:transparent}
 .el1{background:#3c36ff}
 .el2{background:#e418e8}
 .el3{background:#f12525}

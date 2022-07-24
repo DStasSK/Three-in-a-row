@@ -15,6 +15,7 @@ body{
 	background:#26322b;
 	font-size:8px;
 	position:relative;
+	/* cursor:none; */
 }
 
 .fild, .biom{
@@ -27,6 +28,7 @@ body{
 	height:450px;
 	font-size:8px;
 	background-color:transparent;
+	pointer-events:none;
 }
 
 .col {
@@ -41,18 +43,25 @@ body{
 
 i{
 	display:block;
-	width:30px;
-	height:30px;
-	margin:0;
 }
 
 .fild i {
-	box-shadow:inset 0 0 1px 1px #555;
+	width:30px;
+	height:30px;
+	margin:0;
+	/* box-shadow:inset 0 0 1px 1px #9da28e; */
 	border-radius:30%;
 }
+
 .biom i {
-	border-radius:40%;
+	width:28px;
+	height:28px;
+	margin:2px 2px 1px;
+	border-radius:45%;
+	pointer-events:auto;
+	cursor:pointer;
 }
+
 /* .box i:nth-child(1){height:10px; width:10px;}
 .box i:nth-child(2){height:20px; width:20px;} */
 

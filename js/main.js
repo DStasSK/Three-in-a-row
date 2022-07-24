@@ -12,7 +12,8 @@ for (let i = 0; i<x; i++){
 	fild += '<div class="col">';
 	// biom[i] = [];
 	for (let j=0; j<y; j++){
-		fild +=`<i>${i}-${j}</i>`;
+		fild +=`<i></i>`;
+		// fild +=`<i>${i}-${j}</i>`;
 		// biom[i][j] = 0;
 	}
 	fild += '</div>'
@@ -33,7 +34,7 @@ console.log(biom_columns[0].children);
 // biom[0][0] = 1;
 for (let i = 0; i<x; i++){
 	biom[i] = [];
-	for (let j=0; j<y; j++){
+	for (let j=0; j<5; j++){
 		biom[i][j] = Math.round(Math.random()*6);
 		if(biom[i][j]){
 			biom_columns[i].children[j].classList.add(`el${biom[i][j]}`);
@@ -44,20 +45,32 @@ console.table(biom);
 
 
 biom_box.onclick = (e)=>{
-	for (let el of biom){
+	let i = 0;
+	let j = 0;
+	for (let el of biom_columns){
 		let exit = false;
-			// console.log(e.target);
-			for (let el of biom_columns){
-				console.log(e.target);
-				// if(e.target===el){
-					// el.classList.add('pof');
-					// console.log(el);
-					// console.log(1);
-				// }
-				e.target.style.background = 'red';
+		let col = el.children;
+		j = 0;
+		for (let el_i of col){
+			if(el_i == e.target){
+				// e.target.style.background = 'red';
+				e.target.classList.add('del');
 				exit = true;
+				// console.log(e.target);
+				// console.log(biom_columns[i]);
+				let teg_i = document.createElement('i');
+				biom_columns[i].appendChild(teg_i);
+				setTimeout(()=>{
+					e.target.remove();
+				}, 200)
 				break;
 			}
+			j++;
+		}
 		if(exit) break;
+		i++;
 	}
+	console.log('i = ', i, '; j = ', j);
+	console.log(biom_box);
 }
+console.log(biom_box);

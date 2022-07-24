@@ -2,11 +2,22 @@
 
 body{
 	display:flex;
+	flex-wrap:wrap;
 	align-items:center;
 	justify-content:center;
 	width:100vw;
 	height:100vh;
-	/* background:black; */
+	flex-direction:column;
+}
+.start{
+	padding:10px 15px;
+	font-size:25px;
+	background:#ccc;
+	border-radius:6px;
+	margin:10px 0;
+	letter-spacing:2px;
+	text-transform:uppercase;
+	cursor:pointer;
 }
 
 .box {
@@ -43,6 +54,8 @@ body{
 
 i{
 	display:block;
+	font-size:0;
+	line-height:0;
 }
 
 .fild i {
@@ -57,7 +70,7 @@ i{
 .biom i {
 	width:28px;
 	height:28px;
-	margin:1px 1px 1px;
+	margin:1px;
 	border-radius:45%;
 	pointer-events:auto;
 	cursor:pointer;
@@ -68,7 +81,7 @@ i{
 }
 
 @keyframes delete {
-	0%   {}
+	0%   {width:28px; height:28px; margin:1px;}
 	80%  {width:0; height:0; margin:15px;}
 	100% {width:0; height:0; margin:0; background:transparent;}
 }

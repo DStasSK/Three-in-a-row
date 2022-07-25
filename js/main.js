@@ -15,7 +15,7 @@ let interval;
 
 let x = 11; // ширина поля
 let y = 15; // высота поля
-let h = 8;  // количество заполненных линий на старте
+let h = 12;  // количество заполненных линий на старте
 
 // стартовая генерация биома и поля в документе
 // LS - чуть попожже :-)
@@ -97,13 +97,12 @@ function game_start(){
 		start.innerHTML = 'пауза';
 		// console.log('start');
 		if(!game_status) {
-			biom_push(x,y,1);
+			biom_push(x,y,1);  // страртовое заполнение биома
 			game_status = true;
 		}
 		move_ball();
 		clearInterval(interval);
 		interval = setInterval(move_ball, 500);
-		// boom()
 	}
 }
 
@@ -119,6 +118,7 @@ function move_ball(){
 				game_status = false;
 				start.innerHTML = 'начать игру';
 				console.table(biom);
+				console.table(biom_boom);
 				clearInterval(interval);
 			}
 		} else {
@@ -137,8 +137,8 @@ function move_ball(){
 		ball_x = Math.round(Math.random()*(x - 1));
 		// генерация цвета мяча
 		biom[ball_x][ball_y] = Math.round(Math.random()*5) + 1;
-		console.log(ball_x, ball_y)
-		console.table(biom);
+		// console.log(ball_x, ball_y)
+		boom()
 		biom_push(x,y);
 	}
 }
@@ -147,100 +147,50 @@ function move_ball(){
 
 // поиск ряда
 function boom(){
-	try{
-		for (let i = 0; i<x; i++){
-			// biom_boom[i]=[];
-			for (let j = 0; j<y; j++){
-				if(biom[i][j]!=0){
-
-					if((i>1)&&(i<x-2)&&(j>1)&&(j<y-2)){
-						if ((biom[i][j] == biom[i+1][j]) && (biom[i][j] == biom[i+2][j])){
-							biom_boom[i][j] = 1;
-							biom_boom[i+1][j] = 1;
-							biom_boom[i+2][j] = 1;
-						}
-						if ((biom[i][j] == biom[i][j+1]) && (biom[i][j] == biom[i][j+2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i][j+1] = 1;
-							biom_boom[i][j+2] = 1;
-						}
-						if ((biom[i][j] == biom[i+1][j+1]) && (biom[i][j] == biom[i+2][j+2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i+1][j+1] = 1;
-							biom_boom[i+2][j+2] = 1;
-						}
-						if ((biom[i][j] == biom[i-1][j+1]) && (biom[i][j] == biom[i-2][j+2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i-1][j+1] = 1;
-							biom_boom[i-2][j+2] = 1;
-						}
-						if ((biom[i][j] == biom[i-1][j-1]) && (biom[i][j] == biom[i-2][j-2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i-1][j-1] = 1;
-							biom_boom[i-2][j-2] = 1;
-						}
-						if ((biom[i][j] == biom[i+1][j-1]) && (biom[i][j] == biom[i+2][j-2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i+1][j-1] = 1;
-							biom_boom[i+2][j-2] = 1;
-						}
+	for (let i = 0; i<x; i++){
+		for (let j = 0; j<y; j++){
+			if(biom[i][j]!=0){
+				if((i>0)&&(i<x-1)&&(j>0)&&(j<y-1)){
+					if ((biom[i][j]==biom[i+1][j]) && (biom[i][j]==biom[i-1][j])){
+						biom_boom[i][j] = 1;
+						biom_boom[i+1][j] = 1;
+						biom_boom[i-1][j] = 1;
 					}
-
-					if((i<2)&&(j<y-2)){
-						if ((biom[i][j] == biom[i+1][j]) && (biom[i][j] == biom[i+2][j])){
-							biom_boom[i][j] = 1;
-							biom_boom[i+1][j] = 1;
-							biom_boom[i+2][j] = 1;
-						}
-						if ((biom[i][j] == biom[i][j+1]) && (biom[i][j] == biom[i][j+2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i][j+1] = 1;
-							biom_boom[i][j+2] = 1;
-						}
+					if ((biom[i][j]==biom[i][j+1]) && (biom[i][j]==biom[i][j-1])){
+						biom_boom[i][j] = 1;
+						biom_boom[i][j+1] = 1;
+						biom_boom[i][j-1] = 1;
 					}
-
-					if((i>x-3)&&(j<y-2)){
-						if ((biom[i][j] == biom[i][j+1]) && (biom[i][j] == biom[i][j+2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i][j+1] = 1;
-							biom_boom[i][j+2] = 1;
-						}
-						if ((biom[i][j] == biom[i-1][j+1]) && (biom[i][j] == biom[i-2][j+2])){
-							biom_boom[i][j] = 1;
-							biom_boom[i-1][j+1] = 1;
-							biom_boom[i-2][j+2] = 1;
-						}
+					if ((biom[i][j]==biom[i+1][j+1])&&(biom[i][j]==biom[i-1][j-1])){
+						biom_boom[i][j] = 1;
+						biom_boom[i+1][j+1] = 1;
+						biom_boom[i-1][j-1] = 1;
 					}
-
-					if((j<2)&&(i<x-2)){
-						if ((biom[i][j] == biom[i+1][j]) && (biom[i][j] == biom[i+2][j])){
-							biom_boom[i][j] = 1;
-							biom_boom[i+1][j] = 1;
-							biom_boom[i+2][j] = 1;
-						}
-						// if ((biom[i][j] == biom[i][j+1]) && (biom[i][j] == biom[i][j+2])){
-						// 	biom_boom[i][j] = 1;
-						// 	biom_boom[i][j+1] = 1;
-						// 	biom_boom[i][j+2] = 1;
-						// }
+					if ((biom[i][j]==biom[i-1][j+1])&&(biom[i][j]==biom[i+1][j-1])){
+						biom_boom[i][j] = 1;
+						biom_boom[i-1][j+1] = 1;
+						biom_boom[i+1][j-1] = 1;
 					}
+				}
 
-					if((j>y-3)&&(i<x-2)){
-						if ((biom[i][j] == biom[i+1][j]) && (biom[i][j] == biom[i+2][j])){
-							biom_boom[i][j] = 1;
-							biom_boom[i+1][j] = 1;
-							biom_boom[i+2][j] = 1;
-						}
+				if(((i==0)||(i==x-1))&&(j>0)&&(j<y-1)){
+					if ((biom[i][j]==biom[i][j+1]) && (biom[i][j]==biom[i][j-1])){
+						biom_boom[i][j] = 1;
+						biom_boom[i][j+1] = 1;
+						biom_boom[i][j-1] = 1;
 					}
+				}
 
+				if(((j==0)||(j==y-1))&&(i>0)&&(i<x-1)){
+					if ((biom[i][j]==biom[i+1][j]) && (biom[i][j]==biom[i-1][j])){
+						biom_boom[i][j] = 1;
+						biom_boom[i+1][j] = 1;
+						biom_boom[i-1][j] = 1;
+					}
 				}
 			}
 		}
-		// console.table(biom);
-		console.table(biom_boom);
 	}
-	catch {
-		console.table(biom_boom);
-		console.log('ошибка фильтра совпадений');
-	}
+	// console.table(biom);
+	// console.table(biom_boom);
 }

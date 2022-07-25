@@ -9,6 +9,7 @@ let find_row = false;
 let start_game_status = false;
 let game_status = false;
 let ball_status = false;
+let clear_status = 0;
 
 let ball_x;
 let ball_y;
@@ -101,22 +102,27 @@ function game_start(){
 		start_game_status = false;
 		start.innerHTML = 'продолжить игру';
 		clearInterval(interval);
-		// console.log('pause');
 	} else {
 		start_game_status = true;
 		start.innerHTML = 'пауза';
 		// console.log('start');
 		if(!game_status) {
-			biom_push(x,y,1);  // страртовое заполнение биома
+			// страртовое заполнение биома
+			biom_push(x,y,1);
 			game_status = true;
+
+			// поиск 3-х в ряд на стартовой генерации и их удаление
 			clearInterval(interval_del);
-			interval_del = setInterval(clear_row, 500);
-			// clear_row();
-			// console.log(1);
+			clear_status = 0;
+			interval_del = setInterval(clear_row, 600);
 		}
-		// move_ball();
-		// clearInterval(interval);
-		// interval = setInterval(move_ball, 500);
+
+		clearInterval(interval);
+		interval = setInterval(()=>{
+			if (clear_status == 2){
+				move_ball();
+			}
+		}, 450);
 	}
 }
 
@@ -237,8 +243,14 @@ function clear_row(){
 	boom();
 
 	// если элементов для удаления нет - выход из цикла
-	if(find_row == false) clearInterval(interval_del);
+	if(find_row == false){
+		clear_status++;
+		if (clear_status == 2) {
+			clearInterval(interval_del);
+		}
+	}
 }
+
 
 
 function check_score(i,j){

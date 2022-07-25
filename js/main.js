@@ -103,7 +103,7 @@ function game_start(){
 		move_ball();
 		clearInterval(interval);
 		interval = setInterval(move_ball, 500);
-		boom()
+		// boom()
 	}
 }
 
@@ -137,7 +137,8 @@ function move_ball(){
 		ball_x = Math.round(Math.random()*(x - 1));
 		// генерация цвета мяча
 		biom[ball_x][ball_y] = Math.round(Math.random()*5) + 1;
-		// console.log(ball_x, ball_y)
+		console.log(ball_x, ball_y)
+		console.table(biom);
 		biom_push(x,y);
 	}
 }
@@ -150,7 +151,7 @@ function boom(){
 		for (let i = 0; i<x; i++){
 			// biom_boom[i]=[];
 			for (let j = 0; j<y; j++){
-				if(biom[i][j]){
+				if(biom[i][j]!=0){
 
 					if((i>1)&&(i<x-2)&&(j>1)&&(j<y-2)){
 						if ((biom[i][j] == biom[i+1][j]) && (biom[i][j] == biom[i+2][j])){
@@ -240,5 +241,6 @@ function boom(){
 	}
 	catch {
 		console.table(biom_boom);
+		console.log('ошибка фильтра совпадений');
 	}
 }

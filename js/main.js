@@ -4,8 +4,8 @@ let fild_box = document.querySelector('.fild')
 let biom_box = document.querySelector('.biom')
 let biom = [];   // основное поле данных
 let biom_boom=[]
-let find_row = false;
 
+let find_row = false;
 let start_game_status = false;
 let game_status = false;
 let ball_status = false;
@@ -19,10 +19,11 @@ let score = 0;
 
 let x = 11; // ширина поля
 let y = 15; // высота поля
-let h = 12;  // количество заполненных линий на старте
+let h = 12; // количество заполненных линий на старте
+
+
 
 // стартовая генерация биома и поля в документе
-// LS - чуть попожже :-)
 let fild = '';
 for (let i = 0; i<x; i++){
 	fild += '<div class="col">';
@@ -75,7 +76,6 @@ biom_box.onclick = (e)=>{
 		j = 0;
 		for (let el_i of col){
 			if(el_i == e.target){
-				// e.target.style.background = 'red';
 				e.target.classList.add('del');
 				exit = true;
 				for (let k = j; k<y; k++){
@@ -90,14 +90,13 @@ biom_box.onclick = (e)=>{
 		if(exit) break;
 		i++;
 	}
-	// console.log('i = ', i, '; j = ', j);
-	// console.table(biom);
 }
 
 
 
 // начало игры при нажатии на кнопку
 function game_start(){
+	// пауза
 	if(start_game_status){
 		start_game_status = false;
 		start.innerHTML = 'продолжить игру';
@@ -107,6 +106,8 @@ function game_start(){
 		start_game_status = true;
 		start.innerHTML = 'пауза';
 		// console.log('start');
+
+		// начало игры
 		if(!game_status) {
 			// страртовое заполнение биома
 			biom_push(x,y,1);
@@ -129,7 +130,7 @@ function game_start(){
 function move_ball(){
 	if (clear_status == 2){
 		if (ball_status) {
-			if(biom[ball_x][ball_y-1]>0){
+			if((biom[ball_x][ball_y-1]>0)||(biom[ball_x][ball_y-1]==undefined)){
 				ball_status = false;
 				if(biom[ball_x][ball_y-1]>0 && ball_y==y){
 					start_game_status = false;
@@ -139,14 +140,16 @@ function move_ball(){
 					console.table(biom_boom);
 					clearInterval(interval);
 				}
-			} else {
-				biom[ball_x][ball_y-1] = biom[ball_x][ball_y];
-				biom[ball_x][ball_y] = 0;
-				ball_y--;
-				biom_push(x,y);
-				if(biom[ball_x][ball_y-1]>0){
+			}
+			else {
+				if(ball_y>0){
+					biom[ball_x][ball_y-1] = biom[ball_x][ball_y];
+					biom[ball_x][ball_y] = 0;
+					ball_y--;
+					biom_push(x,y);
+				}
+				if((biom[ball_x][ball_y-1]>0)||(biom[ball_x][ball_y-1]==undefined)){
 					ball_status = false;
-
 					boom();
 					if(find_row){
 						clearInterval(interval_del);
@@ -154,8 +157,10 @@ function move_ball(){
 						interval_del = setInterval(clear_row, 600);
 					}
 				}
+
 			}
-		} else {
+		}
+		else {
 			ball_status = true;
 			ball_y = y;
 			// генерация линии падения
@@ -163,7 +168,6 @@ function move_ball(){
 			// генерация цвета мяча
 			biom[ball_x][ball_y] = Math.round(Math.random()*5) + 1;
 			// console.log(ball_x, ball_y)
-			boom()
 			biom_push(x,y);
 		}
 	}
@@ -225,7 +229,7 @@ function boom(){
 
 
 
-// удаление элементов согласно biom_boom
+// удаление элементов согласно biom_boom и подсчет очков
 function clear_row(){
 	// остановка падения шаров
 	clearInterval(interval);
@@ -250,13 +254,13 @@ function clear_row(){
 
 	// проверка на "три в ряд"
 	boom();
+	console.log('score = ',score);
 
 	// если элементов для удаления нет - выход из цикла
 	if(find_row == false){
 		clear_status++;
 		if (clear_status == 2) {
 			clearInterval(interval_del);
-			console.log('score = ',score);
 			interval = setInterval(move_ball, 450);
 		}
 	}
@@ -264,6 +268,7 @@ function clear_row(){
 
 
 
+// подсчет очков в функции clear_row
 function check_score(i,j){
 	if (biom[i][j] == 1) score += 30;
 	if (biom[i][j] == 2) score += 25;

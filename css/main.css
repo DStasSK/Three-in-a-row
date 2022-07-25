@@ -76,6 +76,8 @@ i{
 	border-radius:45%;
 	pointer-events:auto;
 	cursor:pointer;
+	background:currentColor;
+	/* box-shadow:0 0 5px 0px currentColor; */
 }
 
 
@@ -114,13 +116,20 @@ i{
 .del::after{content:'\1F31F'}
 
 
-.el0{background:transparent}
+.el0{color:transparent;}
+.el1{color:#3c36ff}
+.el2{color:#e418e8}
+.el3{color:#f12525}
+.el4{color:#10b620}
+.el5{color:#5ae4e0}
+.el6{color:#f3ff12}
+/* .el0{background:transparent;}
 .el1{background:#3c36ff}
 .el2{background:#e418e8}
 .el3{background:#f12525}
 .el4{background:#10b620}
 .el5{background:#5ae4e0}
-.el6{background:#f3ff12}
+.el6{background:#f3ff12} */
 .del.el0::before,.el0::after{content:''}
 .del.el1::before{content:'30'}
 .del.el2::before{content:'25'}

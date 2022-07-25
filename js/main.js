@@ -15,8 +15,10 @@ let ball_x;
 let ball_y;
 let interval;
 let interval_del;
-let score = 0;
 
+let score = 0;            // счетчик очков
+let timeBySpep = 400;     // время прохождения шаром одной клетки ms
+let timeClearSpep = 600;  // время на удаления элементов ms
 let x = 11; // ширина поля
 let y = 15; // высота поля
 let h = 12; // количество заполненных линий на старте
@@ -112,15 +114,16 @@ function game_start(){
 			// страртовое заполнение биома
 			biom_push(x,y,1);
 			game_status = true;
+			score = 0;
 
 			// поиск 3-х в ряд на стартовой генерации и их удаление
 			clearInterval(interval_del);
 			clear_status = 0;
-			interval_del = setInterval(clear_row, 600);
+			interval_del = setInterval(clear_row, timeClearSpep);
 		}
 
 		clearInterval(interval);
-		interval = setInterval(move_ball, 450);
+		interval = setInterval(move_ball, timeBySpep);
 	}
 }
 
@@ -154,7 +157,7 @@ function move_ball(){
 					if(find_row){
 						clearInterval(interval_del);
 						clear_status = 0;
-						interval_del = setInterval(clear_row, 600);
+						interval_del = setInterval(clear_row, timeClearSpep);
 					}
 				}
 
@@ -261,7 +264,7 @@ function clear_row(){
 		clear_status++;
 		if (clear_status == 2) {
 			clearInterval(interval_del);
-			interval = setInterval(move_ball, 450);
+			interval = setInterval(move_ball, timeBySpep);
 		}
 	}
 }

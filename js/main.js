@@ -39,15 +39,21 @@ fild_box.innerHTML = fild;
 
 
 // построение элементов в HTML документе согласно биому
-function biom_push(x,y,z){
+function biom_push(x,y,zz){
 	fild = '';
+	let del = ''
 	for (let i = 0; i<x; i++){
 		fild += '<div class="col">';
 		for (let j=0; j<y; j++){
-			if((z==1) && j<h) {biom[i][j] = 1 + Math.round(Math.random()*5)}
-			if((z==1) && j>=h) {biom[i][j] = 0}
+			if((zz==1) && j<h) {biom[i][j] = 1 + Math.round(Math.random()*5)}
+			if((zz==1) && j>=h) {biom[i][j] = 0}
 			if(!biom[i][j]) biom[i][j]=0;
-			fild +=`<i class="el${biom[i][j]}"></i>`;
+
+			if(zz==2){
+				if(biom_boom[i][j]==1) {del = 'del'}
+				else {del = ''}
+			}
+			fild +=`<i class="el${biom[i][j]} ${del}"></i>`;
 		}
 		fild += '</div>'
 	}
@@ -109,8 +115,8 @@ function game_start(){
 			// console.log(1);
 		}
 		// move_ball();
-		clearInterval(interval);
-		interval = setInterval(move_ball, 500);
+		// clearInterval(interval);
+		// interval = setInterval(move_ball, 500);
 	}
 }
 
@@ -155,6 +161,8 @@ function move_ball(){
 
 // поиск совпадений 3 в ряд и более для удаления
 function boom(){
+	find_row = false;
+
 	for (let i = 0; i<x; i++){
 		for (let j = 0; j<y; j++){
 			if(biom[i][j]!=0){
@@ -196,13 +204,11 @@ function boom(){
 						biom_boom[i-1][j] = 1;
 					}
 				}
+
 			}
+			if(biom_boom[i][j]==1) find_row = true;
 		}
-		// проверка на наличие "трех в ряд"
-		if(biom[i].indexOf(1)>-1) find_row = true;
 	}
-	// console.table(biom);
-	// console.table(biom_boom);
 }
 
 
@@ -212,45 +218,26 @@ function clear_row(){
 	// поиск 3 в ряд
 	boom();
 
-	let biom_columns = document.querySelectorAll('.biom .col');
-	let i = 0;
-	let j = 0;
-	for (let el of biom_columns){
-		let col = el.children;
-		j = 0;
-		for (let el_i of col){
-			if(biom_boom[i][j] == 1){
-				el_i.classList.add('del');
-				biom_boom[i][j] == 0;
-				check_score(i,j);   // подсчет очков
-				biom[i][j] == 0;
-				// console.log(el_i);
-				setTimeout(()=>{el_i.remove()}, 400)
-			}
-			j++;
-		}
-		i++;
-	}
-	console.table(biom);
+	// анимация удаления - через добавление класса del
+	biom_push(x,y,2);
 
 	// падение элементов в биоме
 	for(let i=0; i<x; i++){
-		for(let j=0; j<y; j++){
-			while (biom[i][j] == 0){
-				biom[i].splice(j,1);
+		for(let j=y-1; j>=0; j--){
+			if(biom_boom[i][j]==1){
+				check_score(i,j)       // подсчет очков
+				biom[i].splice(j,1);   // удаление элемента из биома
+				biom[i].push(0);       // добавление элемента в конец массива
+				biom_boom[i][j]=0;     // обнуление поиска 3-х в ряд
 			}
-			if(!biom[i][j]) biom[i][j]=0;
 		}
 	}
 
-
 	// проверка на "три в ряд"
-	find_row = false;
 	boom();
 
 	// если элементов для удаления нет - выход из цикла
-	if(!find_row) clearInterval(interval_del);
-	// console.table(biom)
+	if(find_row == false) clearInterval(interval_del);
 }
 
 

@@ -80,21 +80,6 @@ i{
 
 
 
-.el0{background:transparent}
-.el1{background:#3c36ff}
-.el2{background:#e418e8}
-.el3{background:#f12525}
-.el4{background:#10b620}
-.el5{background:#5ae4e0}
-.el6{background:#f3ff12}
-.del.el0::before,.el0::after{content:''}
-.del.el1::before{content:'30'}
-.del.el2::before{content:'25'}
-.del.el3::before{content:'20'}
-.del.el4::before{content:'20'}
-.del.el5::before{content:'25'}
-.del.el6::before{content:'30'}
-
 
 /* анимирование очков */
 .del{animation:delete 0.25s linear 1 forwards}
@@ -127,3 +112,19 @@ i{
 	z-index:5;
 }
 .del::after{content:'\1F31F'}
+
+
+.el0{background:transparent}
+.el1{background:#3c36ff}
+.el2{background:#e418e8}
+.el3{background:#f12525}
+.el4{background:#10b620}
+.el5{background:#5ae4e0}
+.el6{background:#f3ff12}
+.del.el0::before,.el0::after{content:''}
+.del.el1::before{content:'30'}
+.del.el2::before{content:'25'}
+.del.el3::before{content:'20'}
+.del.el4::before{content:'20'}
+.del.el5::before{content:'25'}
+.del.el6::before{content:'30'}

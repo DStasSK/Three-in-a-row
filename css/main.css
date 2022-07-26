@@ -1,6 +1,6 @@
 *{margin:0; padding:0; box-sizing:border-box;}
 
-body{
+.game{
 	display:flex;
 	flex-wrap:wrap;
 	align-items:center;
@@ -8,32 +8,171 @@ body{
 	width:100vw;
 	height:100vh;
 	flex-direction:column;
-	background:#74c692;
+	/* background:#74c692;
+	background:#89d4b9;
+	background:#9ad196; */
+	background:#baa3c8;
 }
-.start{
+
+
+
+/* panel */
+.panel{
+	position:relative;
+	display:flex;
+	flex-wrap:nowrap;
+	justify-content:space-between;
+	margin:20px 0 0;
+	height:50px;
+	width:336px;
+	font-size:26px;
+	text-align:center;
+	line-height:50px;
+	background:#373750;
+}
+.panel > *{
+	box-shadow:inset 0 0 6px 0px yellow
+}
+.panel_btn{position:relative;}
+.icon{width:50px; height:50px;}
+.panel_score{
+	position:relative;
+	height:50px;
+	letter-spacing:1.5px;
+	font-family:monospace;
+	color:#fa915e;
+	color:#d5dd4d;
+	flex:1;
+}
+.score_bg,.score_info{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	white-space: pre;
+}
+.score_info{
+	color:#fa915e;
+}
+
+.option_box,.info_box{
+	position:absolute;
+	top:50px;
+	width:80px;
+	height:458px;
+	background:#38433C;
+	box-shadow:inset 0 0 6px 0px yellow;
+	text-align:center;
+	line-height:1;
+	font-size:24px;}
+.option_box{
+	left:-80px;
+}
+
+.info_box{
+	right:-80px;
+	/* text-align:center;
+	line-height:1;
+	font-size:24px; */
+}
+.info_box div,.option_box div{
+	width:60px;
+	height:54px;
+	letter-spacing:0;
+	margin:10px 10px 42px;
+	padding:1px;
+	background:#e3d3f0;
+	border-radius:4px;
+}
+.info_box span,.option_box span{
+	font-size:18px;
+}
+
+
+/* оформление input (.filling) */
+.filling{
+	width:150px;
+	height:30px;
+	transform:rotate(90deg);
+	cursor:pointer;
+	margin:25px 0;
+	position:absolute;
+	bottom:185px;
+	left:-35px;
+	border-radius:15px;
+}
+/* скрывает слайдер, чтобы можно было добавить собственные стили. */
+.filling:focus {outline:none;}
+.filling::-webkit-slider-thumb {-webkit-appearance:none;}
+.filling{-webkit-appearance:none;}
+.filling::-ms-track {
+	background:transparent;
+	border-color:transparent;
+	color:transparent;
+}
+
+
+/* Оформление ползунка */
+/* для браузеров на движках WebKit */
+.filling::-webkit-slider-thumb {border-radius:45%; height:30px; width:30px; background:#4646b9; margin:0;}
+/* для Firefox */
+.filling::-moz-range-thumb {border-radius:45%; height:30px; width:30px; background:#4646b9; margin:0;}
+/* для IE */
+.filling::-ms-thumb {border-radius:45%; height:30px; width:30px; background:#4646b9; margin:0;}
+
+/* Оформление полосы диапазона */
+.filling::-webkit-slider-runnable-track {background:#e3d3f0; border-radius:15px; height:30px;}
+.filling:focus::-webkit-slider-runnable-track {background:#e3d3f0; border-radius:15px; height:30px;}
+.filling::-moz-range-track {background:#e3d3f0; border-radius:15px; height:30px;}
+.filling::-ms-track {
+	background:transparent;
+	border-color:transparent;
+	border-width:30px 0;
+	color:transparent;
+	border-radius:15px;
+}
+.filling::-ms-fill-lower {background:#e3d3f0}
+.filling::-ms-fill-upper {background:#e3d3f0}
+.filling:focus::-ms-fill-lower {background:#e3d3f0}
+.filling:focus::-ms-fill-upper {background:#e3d3f0}
+
+
+
+
+
+
+
+
+
+
+
+/* start game */
+.btn_start{
 	padding:10px 15px;
-	font-size:25px;
+	font-size:22px;
 	background:#eee;
 	border-radius:6px;
 	margin:10px 0;
-	letter-spacing:2px;
+	letter-spacing:1px;
 	text-transform:uppercase;
 	cursor:pointer;
 }
 
-.box {
-	width:330px;
-	height:450px;
+.game_box {
+	width:336px;
+	height:458px;
+	box-shadow:inset 0 0 6px 0px yellow;
 	background:#26322b;
 	font-size:8px;
 	position:relative;
 	/* cursor:none; */
 }
 
-.fild, .biom{
+.bg_fild, .biom{
 	position:absolute;
-	top:0;
-	left:0;
+	top:5px;
+	left:3px;
 	display:flex;
 	flex-wrap:nowrap;
 	width:330px;
@@ -42,7 +181,6 @@ body{
 	background-color:transparent;
 	pointer-events:none;
 }
-
 .col {
 	width:30px;
 	height:100%;
@@ -60,7 +198,7 @@ i{
 	position:relative;
 }
 
-.fild i {
+.bg_fild i {
 	width:28px;
 	height:28px;
 	margin:1px;
@@ -86,23 +224,28 @@ i{
 /* анимирование очков */
 .del{animation:delete 0.5s linear 1 forwards}
 @keyframes delete {
-	0%   {width:28px; height:28px; margin:1px;}
-	90%  {width:0; height:0; margin:15px;}
+	0%	 {width:28px; height:28px; margin:1px;}
+	90%	{width:0; height:0; margin:15px;}
 	100% {width:0; height:0; margin:0; background:transparent;}
 }
-
 .del::before,.del::after{
 	position:relative;
-	top:-5px;
+	top:0;
 	display:block;
-	width:16px;
-	height:16px;
+	width:14px;
+	height:14px;
 	color:red;
 	font-style:normal;
 	font-size:28px;
 	text-align:center;
 	line-height:1;
 	z-index:2;
+	animation:score 0.4s linear 1 forwards
+}
+@keyframes score {
+	0%	 {opacity:1; top:0; left:0}
+	70%	{opacity:1; top:-40px; left:0}
+	100% {opacity:0; top:-50px; left:0}
 }
 .del::before{
 	top:0;
@@ -116,6 +259,7 @@ i{
 .del::after{content:'\1F31F'}
 
 
+/* цвета шаров и отображаемые очки */
 .el0{color:transparent;}
 .el1{color:#3c36ff}
 .el2{color:#e418e8}

@@ -1,7 +1,9 @@
-const start = document.querySelector('.start')
+const start = document.querySelector('.btn_start')
+const fild_box = document.querySelector('.bg_fild')
+const biom_box = document.querySelector('.biom')
+
 start.addEventListener('click', game_start);
-let fild_box = document.querySelector('.fild')
-let biom_box = document.querySelector('.biom')
+
 let biom = [];   // основное поле данных
 let biom_boom=[]
 
@@ -92,6 +94,10 @@ biom_box.onclick = (e)=>{
 		if(exit) break;
 		i++;
 	}
+	clearInterval(interval_del);
+	clear_status = 0;
+	interval_del = setInterval(clear_row, timeClearSpep);
+	clearInterval(interval);
 }
 
 
@@ -106,7 +112,7 @@ function game_start(){
 	}
 	else {
 		start_game_status = true;
-		start.innerHTML = 'пауза';
+		start.innerHTML = 'pause';
 		// console.log('start');
 
 		// начало игры
@@ -232,7 +238,8 @@ function boom(){
 
 
 
-// удаление элементов согласно biom_boom и подсчет очков
+// удаление элементов согласно biom_boom
+// и подсчет очков
 function clear_row(){
 	// остановка падения шаров
 	clearInterval(interval);
@@ -251,6 +258,11 @@ function clear_row(){
 				biom[i].splice(j,1);   // удаление элемента из биома
 				biom[i].push(0);       // добавление элемента в конец массива
 				biom_boom[i][j]=0;     // обнуление поиска 3-х в ряд
+			}
+			if(biom[i][j-1]==0 && biom_boom[i][j-1]==0){
+				biom[i].splice(j-1,1);
+				biom[i].push(0);
+				ball_status = false;
 			}
 		}
 	}

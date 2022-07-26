@@ -5,11 +5,43 @@
 
 </head>
 <body>
-<div class="start">начать игру</div>
-<div class="box">
-	<div class="fild"></div>
-	<div class="biom"></div>
+<div class="game">
+	<div class="panel">
+		<div class="panel_btn option">
+			<div class="icon">o</div>
+			<div class="option_box">
+				<div>NG<br><span>N</span></div>
+				<input type="range" min="6" max="10" value="8" class="filling">
+			</div>
+		</div>
+
+		<div class="panel_score">
+			<div class="score_bg">000000</div>
+			<div class="score_info">      </div>
+		</div>
+
+		<div class="panel_btn info">
+			<div class="icon">i</div>
+			<div class="info_box">
+				<div>left<br><span>A & &larr;</span></div>
+				<div>right<br><span>D & &rarr;</span></div>
+				<div>down<br><span>S & &darr;</span></div>
+				<div>pause<br><span style="font-size:40px; vertical-align:text-top; line-height:0">&#9141;</span></div>
+				<div>GG<br><span>G</span></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="game_box">
+		<div class="bg_fild"></div>
+		<div class="biom"></div>
+	</div>
+
+	<div class="game_menu">
+		<div class="btn_start">new game</div>
+	</div>
 </div>
+
 
 <script src="js/main.js"></script>
 

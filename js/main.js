@@ -33,8 +33,8 @@ let interval_del;
 
 let score = 0;            // счетчик очков
 let score_str = 0;
-let timeBySpep = 400;     // время прохождения шаром одной клетки ms
-let timeClearSpep = 600;  // время на удаления элементов ms
+let timeBySpep = 350;     // время прохождения шаром одной клетки ms
+let timeClearSpep = 400;  // время на удаления элементов ms
 let x = 11; // ширина поля
 let y = 15; // высота поля
 let h = 12; // количество заполненных линий на старте
@@ -214,7 +214,6 @@ function game_over(){
 	if (game_menu.classList.contains('ani')) {
 		game_menu.classList.toggle('ani');
 	}
-
 	// console.table(biom);
 	// console.table(biom_boom);
 }
@@ -227,12 +226,7 @@ function move_ball(){
 			if((biom[ball_x][ball_y-1]>0)||(biom[ball_x][ball_y-1]==undefined)){
 				ball_status = false;
 				if(biom[ball_x][ball_y-1]>0 && ball_y==y){
-					start_game_status = false;
-					game_status = false;
-					start.innerHTML = 'начать игру';
-					console.table(biom);
-					console.table(biom_boom);
-					clearInterval(interval);
+					game_over()
 				}
 			}
 			else {
@@ -244,25 +238,37 @@ function move_ball(){
 				}
 				if((biom[ball_x][ball_y-1]>0)||(biom[ball_x][ball_y-1]==undefined)){
 					ball_status = false;
-					boom();
-					if(find_row){
-						clearInterval(interval_del);
-						clear_status = 0;
-						interval_del = setInterval(clear_row, timeClearSpep);
-					}
+					// boom();
+					// if(find_row){
+					// 	clearInterval(interval_del);
+					// 	clear_status = 0;
+					// 	interval_del = setInterval(clear_row, timeClearSpep);
+					// }
 				}
-
 			}
 		}
 		else {
-			ball_status = true;
-			ball_y = y;
-			// генерация линии падения
-			ball_x = Math.round(Math.random()*(x - 1));
-			// генерация цвета мяча
-			biom[ball_x][ball_y] = Math.round(Math.random()*5) + 1;
-			// console.log(ball_x, ball_y)
-			biom_push(x,y);
+			boom();
+			if(find_row){
+				clearInterval(interval_del);
+				clear_status = 0;
+				interval_del = setInterval(clear_row, timeClearSpep);
+			} else {
+				ball_status = true;
+				ball_y = y-1;
+
+				// генерация линии падения
+				ball_x = Math.round(Math.random()*(x - 1));
+
+				if(biom[ball_x][ball_y]==0) {
+					// генерация цвета мяча
+					biom[ball_x][ball_y] = Math.round(Math.random()*5) + 1;
+				}
+				else game_over();
+
+				// console.log(ball_x, ball_y)
+				biom_push(x,y);
+			}
 		}
 	}
 }
@@ -270,13 +276,30 @@ function move_ball(){
 
 // движение мяча игроком
 function to_left(){
-
+	if((ball_x-1) >= 0 && biom[ball_x-1][ball_y]==0){
+		biom[ball_x-1][ball_y] = biom[ball_x][ball_y];
+		biom[ball_x][ball_y] = 0;
+		ball_x--;
+		ball_status = true;
+		biom_push(x,y);
+	}
 }
 function to_right(){
-
+	if((ball_x+1) < x && biom[ball_x+1][ball_y]==0){
+		biom[ball_x+1][ball_y] = biom[ball_x][ball_y];
+		biom[ball_x][ball_y] = 0;
+		ball_x++;
+		ball_status = true;
+		biom_push(x,y);
+	}
 }
 function to_down(){
-
+	while((ball_y-1) >= 0 && biom[ball_x][ball_y-1]==0){
+		biom[ball_x][ball_y-1] = biom[ball_x][ball_y];
+		biom[ball_x][ball_y] = 0;
+		ball_y--;
+	}
+	biom_push(x,y);
 }
 
 

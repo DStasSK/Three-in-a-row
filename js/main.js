@@ -33,8 +33,8 @@ let interval_del;
 
 let score = 0;            // счетчик очков
 let score_str = 0;
-let timeBySpep = 350;     // время прохождения шаром одной клетки ms
-let timeClearSpep = 400;  // время на удаления элементов ms
+let timeBySpep = 400;     // время прохождения шаром одной клетки ms
+let timeClearSpep = 450;  // время на удаления элементов ms
 let x = 11; // ширина поля
 let y = 15; // высота поля
 let h = 12; // количество заполненных линий на старте
@@ -175,9 +175,7 @@ function game_start(){
 		score = 0;
 
 		// поиск 3-х в ряд на стартовой генерации и их удаление
-		clearInterval(interval_del);
-		clear_status = 0;
-		interval_del = setInterval(clear_row, timeClearSpep);
+		dell_ball();
 	}
 
 	clearInterval(interval);
@@ -224,10 +222,8 @@ function move_ball(){
 	if (clear_status == 2 && game_status && start_game_status){
 		if (ball_status) {
 			if((biom[ball_x][ball_y-1]>0)||(biom[ball_x][ball_y-1]==undefined)){
+				// остановка падения
 				ball_status = false;
-				if(biom[ball_x][ball_y-1]>0 && ball_y==y){
-					game_over()
-				}
 			}
 			else {
 				if(ball_y>0){
@@ -238,16 +234,10 @@ function move_ball(){
 				}
 				if((biom[ball_x][ball_y-1]>0)||(biom[ball_x][ball_y-1]==undefined)){
 					ball_status = false;
-					// boom();
-					// if(find_row){
-					// 	clearInterval(interval_del);
-					// 	clear_status = 0;
-					// 	interval_del = setInterval(clear_row, timeClearSpep);
-					// }
 				}
 			}
 		}
-		else {
+		if (!ball_status) {
 			boom();
 			if(find_row){
 				clearInterval(interval_del);
@@ -255,7 +245,7 @@ function move_ball(){
 				interval_del = setInterval(clear_row, timeClearSpep);
 			} else {
 				ball_status = true;
-				ball_y = y-1;
+				ball_y = y - 1;
 
 				// генерация линии падения
 				ball_x = Math.round(Math.random()*(x - 1));
@@ -266,7 +256,7 @@ function move_ball(){
 				}
 				else game_over();
 
-				// console.log(ball_x, ball_y)
+				// отображение щара в игре
 				biom_push(x,y);
 			}
 		}
@@ -276,20 +266,20 @@ function move_ball(){
 
 // движение мяча игроком
 function to_left(){
-	if((ball_x-1) >= 0 && biom[ball_x-1][ball_y]==0){
+	if((ball_x-1) >= 0 && biom[ball_x-1][ball_y]==0 && biom[ball_x][ball_y-1]==0){
 		biom[ball_x-1][ball_y] = biom[ball_x][ball_y];
 		biom[ball_x][ball_y] = 0;
 		ball_x--;
-		ball_status = true;
+		// ball_status = true;
 		biom_push(x,y);
 	}
 }
 function to_right(){
-	if((ball_x+1) < x && biom[ball_x+1][ball_y]==0){
+	if((ball_x+1) < x && biom[ball_x+1][ball_y]==0 && biom[ball_x][ball_y-1]==0){
 		biom[ball_x+1][ball_y] = biom[ball_x][ball_y];
 		biom[ball_x][ball_y] = 0;
 		ball_x++;
-		ball_status = true;
+		// ball_status = true; // для предотвращения зависания шара
 		biom_push(x,y);
 	}
 }
@@ -303,7 +293,17 @@ function to_down(){
 }
 
 
+
+
 // поиск совпадений 3 в ряд и более для удаления
+function dell_ball(){
+	boom();
+	if(find_row){
+		clearInterval(interval_del);
+		clear_status = 0;
+		interval_del = setInterval(clear_row, timeClearSpep);
+	}
+}
 function boom(){
 	find_row = false;
 
@@ -363,7 +363,7 @@ function clear_row(){
 	clearInterval(interval);
 
 	// поиск 3 в ряд
-	boom();
+	// boom();
 
 	// анимация удаления - через добавление класса del
 	biom_push(x,y,2);
@@ -374,8 +374,8 @@ function clear_row(){
 			if(biom_boom[i][j]==1){
 				check_score(i,j)       // подсчет очков
 				biom[i].splice(j,1);   // удаление элемента из биома
-				biom[i].push(0);       // добавление элемента в конец массива
-				biom_boom[i][j]=0;     // обнуление поиска 3-х в ряд
+				biom[i].push(0);       // добавление элемента в конец массива биома
+				biom_boom[i][j]=0;     // обнуление в массиве совпадений
 			}
 			if(biom[i][j-1]==0 && biom_boom[i][j-1]==0){
 				biom[i].splice(j-1,1);
@@ -390,7 +390,7 @@ function clear_row(){
 
 	// если элементов для удаления нет - выход из цикла
 	if(find_row == false){
-		clear_status++;
+		clear_status=2;
 		if (clear_status == 2) {
 			clearInterval(interval_del);
 			interval = setInterval(move_ball, timeBySpep);
@@ -408,9 +408,6 @@ function check_score(i,j){
 	if (biom[i][j] == 5) score += 25;
 	if (biom[i][j] == 6) score += 30;
 	// console.log('score = ',score);
-
-	const score_bg = document.querySelector('.score_bg')
-	const score_info = document.querySelector('.score_info')
 
 	if (score_str < 7){
 		if (score < 100) {

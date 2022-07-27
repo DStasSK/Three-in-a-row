@@ -7,6 +7,8 @@ const option = document.querySelector('.option')
 const option_box = document.querySelector('.option_box')
 const info = document.querySelector('.info')
 const info_box = document.querySelector('.info_box')
+const score_bg = document.querySelector('.score_bg')
+const score_info = document.querySelector('.score_info')
 
 // прослушивание клавиш
 document.addEventListener('keydown', keys);
@@ -30,6 +32,7 @@ let interval;
 let interval_del;
 
 let score = 0;            // счетчик очков
+let score_str = 0;
 let timeBySpep = 400;     // время прохождения шаром одной клетки ms
 let timeClearSpep = 600;  // время на удаления элементов ms
 let x = 11; // ширина поля
@@ -63,7 +66,6 @@ function keys(event){
 		game_status = false;
 		clearInterval(interval);
 		start.innerHTML = 'new game';
-		console.log('start game');
 		game_start();
 	}
 
@@ -89,17 +91,17 @@ function keys(event){
 
 	// сдвиг шара влево
 	if(event.key=='a'||event.key=='A'||event.key=='ф'||event.key=='Ф'||event.key=='ArrowLeft'||event.keyCode=='65'||event.keyCode=='37'){
-		console.log('left');
+		to_left();
 	}
 
 	// сдвиг шара вниз
 	if(event.key=='s'||event.key=='S'||event.key=='ы'||event.key=='Ы'||event.key=='ArrowDown'||event.keyCode=='83'||event.keyCode=='40'){
-		console.log('down');
+		to_down();
 	}
 
 	// сдвиг шара вправо
 	if(event.key=='d'||event.key=='D'||event.key=='в'||event.key=='В'||event.key=='ArrowRight'||event.keyCode=='68'||event.keyCode=='39'){
-		console.log('right');
+		to_right();
 	}
 }
 
@@ -162,6 +164,7 @@ biom_box.onclick = (e)=>{
 function game_start(){
 	game_status = false;
 	start_game_status = true;
+	score_str = 0;
 
 	if (!game_menu.classList.contains('ani')) game_menu.classList.toggle('ani');
 
@@ -217,7 +220,6 @@ function game_over(){
 }
 
 
-
 // падение мяча
 function move_ball(){
 	if (clear_status == 2 && game_status && start_game_status){
@@ -263,6 +265,18 @@ function move_ball(){
 			biom_push(x,y);
 		}
 	}
+}
+
+
+// движение мяча игроком
+function to_left(){
+
+}
+function to_right(){
+
+}
+function to_down(){
+
 }
 
 
@@ -350,7 +364,6 @@ function clear_row(){
 
 	// проверка на "три в ряд"
 	boom();
-	console.log('score = ',score);
 
 	// если элементов для удаления нет - выход из цикла
 	if(find_row == false){
@@ -372,10 +385,46 @@ function check_score(i,j){
 	if (biom[i][j] == 5) score += 25;
 	if (biom[i][j] == 6) score += 30;
 	// console.log('score = ',score);
+
+	const score_bg = document.querySelector('.score_bg')
+	const score_info = document.querySelector('.score_info')
+
+	if (score_str < 7){
+		if (score < 100) {
+			score_str = 2;
+			score_bg.innerHTML = '0000  ';
+			score_info.innerHTML = '    ' + score;
+		}
+		if (score > 99 && score < 1000) {
+			score_str = 3;
+			score_bg.innerHTML = '000   ';
+			score_info.innerHTML = '   ' + score;
+		}
+		if (score > 999 && score < 10000) {
+			score_str = 4;
+			score_bg.innerHTML = '00    ';
+			score_info.innerHTML = '  ' + score;
+		}
+		if (score > 9999 && score < 100000) {
+			score_str = 5;
+			score_bg.innerHTML = '0     ';
+			score_info.innerHTML = ' ' + score;
+		}
+		if (score > 99999 && score < 1000000) {
+			score_str = 6;
+			score_bg.innerHTML = '      ';
+			score_info.innerHTML = '' + score;
+		}
+		if (score > 999999) {
+			score_str = 7;
+			score_bg.innerHTML = '      ';
+			score_info.innerHTML = 888888;
+		}
+	}
 }
 
 
-
+// открытие и закрытие меню
 function showInfo(){
 	info_box.classList.toggle('ani');
 

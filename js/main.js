@@ -1,11 +1,22 @@
+const game_menu = document.querySelector('.game_menu')
 const start = document.querySelector('.btn_start')
+const option_btn_start = document.querySelector('.option_btn_start')
 const fild_box = document.querySelector('.bg_fild')
 const biom_box = document.querySelector('.biom')
+const option = document.querySelector('.option')
+const option_box = document.querySelector('.option_box')
+const info = document.querySelector('.info')
+const info_box = document.querySelector('.info_box')
 
-start.addEventListener('click', game_start);
+// прослушивание клавиш
+document.addEventListener('keydown', keys);
+start.addEventListener('click', game_start);   // начало игры
+option_btn_start.addEventListener('click', game_start);
+option.addEventListener('click', showOption);  // показать меню опций
+info.addEventListener('click', showInfo);      // показать меню информации
 
 let biom = [];   // основное поле данных
-let biom_boom=[]
+let biom_boom=[];
 
 let find_row = false;
 let start_game_status = false;
@@ -44,6 +55,54 @@ fild_box.innerHTML = fild;
 
 
 
+// логика клавиш
+function keys(event){
+	// начало игры
+	if(event.key=='n'||event.key=='N'||event.key=='т'||event.key=='Т'||event.keyCode=='78') {
+		start_game_status = false;
+		game_status = false;
+		clearInterval(interval);
+		start.innerHTML = 'new game';
+		console.log('start game');
+		game_start();
+	}
+
+	// пауза
+	if(event.key=='p'||event.key=='P'||event.key=='з'||event.key=='З'||event.key==' '||event.keyCode=='32'||event.keyCode=='80'){
+		pause();
+	}
+
+	// конец игры
+	if(event.key=='g'||event.key=='G'||event.key=='п'||event.key=='П'||event.keyCode=='71'){
+		game_over();
+	}
+
+	// открыть меню опций
+	if(event.key=='o'||event.key=='O'||event.key=='щ'||event.key=='Щ'||event.keyCode=='79') {
+		showOption();
+	}
+
+	// открыть меню информации
+	if(event.key=='i'||event.key=='I'||event.key=='ш'||event.key=='Ш'||event.keyCode=='16'){
+		showInfo();
+	}
+
+	// сдвиг шара влево
+	if(event.key=='a'||event.key=='A'||event.key=='ф'||event.key=='Ф'||event.key=='ArrowLeft'||event.keyCode=='65'||event.keyCode=='37'){
+		console.log('left');
+	}
+
+	// сдвиг шара вниз
+	if(event.key=='s'||event.key=='S'||event.key=='ы'||event.key=='Ы'||event.key=='ArrowDown'||event.keyCode=='83'||event.keyCode=='40'){
+		console.log('down');
+	}
+
+	// сдвиг шара вправо
+	if(event.key=='d'||event.key=='D'||event.key=='в'||event.key=='В'||event.key=='ArrowRight'||event.keyCode=='68'||event.keyCode=='39'){
+		console.log('right');
+	}
+}
+
 // построение элементов в HTML документе согласно биому
 function biom_push(x,y,zz){
 	fild = '';
@@ -64,9 +123,7 @@ function biom_push(x,y,zz){
 		fild += '</div>'
 	}
 	biom_box.innerHTML = fild;
-	// console.table(biom);
 }
-
 
 
 // удаление элемента по клику на нем
@@ -101,43 +158,69 @@ biom_box.onclick = (e)=>{
 }
 
 
-
-// начало игры при нажатии на кнопку
+// начало игры
 function game_start(){
-	// пауза
-	if(start_game_status){
-		start_game_status = false;
-		start.innerHTML = 'продолжить игру';
-		clearInterval(interval);
+	game_status = false;
+	start_game_status = true;
+
+	if (!game_menu.classList.contains('ani')) game_menu.classList.toggle('ani');
+
+	if(!game_status) {
+		// страртовое заполнение биома
+		biom_push(x,y,1);
+		game_status = true;
+		score = 0;
+
+		// поиск 3-х в ряд на стартовой генерации и их удаление
+		clearInterval(interval_del);
+		clear_status = 0;
+		interval_del = setInterval(clear_row, timeClearSpep);
 	}
-	else {
-		start_game_status = true;
-		start.innerHTML = 'pause';
-		// console.log('start');
 
-		// начало игры
-		if(!game_status) {
-			// страртовое заполнение биома
-			biom_push(x,y,1);
-			game_status = true;
-			score = 0;
+	clearInterval(interval);
+	interval = setInterval(move_ball, timeBySpep);
+}
 
-			// поиск 3-х в ряд на стартовой генерации и их удаление
-			clearInterval(interval_del);
-			clear_status = 0;
-			interval_del = setInterval(clear_row, timeClearSpep);
+
+// pause
+function pause(){
+	if(game_status){
+		if(start_game_status) {
+			start_game_status = false;
+			start.innerHTML = 'пауза';
+			game_menu.classList.toggle('ani');
+			clearInterval(interval);
 		}
-
-		clearInterval(interval);
-		interval = setInterval(move_ball, timeBySpep);
+		else {
+			start_game_status = true;
+			game_menu.classList.toggle('ani');
+			clearInterval(interval);
+			interval = setInterval(move_ball, timeBySpep);
+		}
 	}
+}
+
+
+// game over
+function game_over(){
+	clearInterval(interval);
+	start_game_status = false;
+	game_status = false;
+	start.innerHTML = 'игра окончена';
+
+	if (game_menu.classList.contains('ani')) {
+		game_menu.classList.toggle('ani');
+	}
+
+	// console.table(biom);
+	// console.table(biom_boom);
 }
 
 
 
 // падение мяча
 function move_ball(){
-	if (clear_status == 2){
+	if (clear_status == 2 && game_status && start_game_status){
 		if (ball_status) {
 			if((biom[ball_x][ball_y-1]>0)||(biom[ball_x][ball_y-1]==undefined)){
 				ball_status = false;
@@ -181,7 +264,6 @@ function move_ball(){
 		}
 	}
 }
-
 
 
 // поиск совпадений 3 в ряд и более для удаления
@@ -237,7 +319,6 @@ function boom(){
 }
 
 
-
 // удаление элементов согласно biom_boom
 // и подсчет очков
 function clear_row(){
@@ -282,7 +363,6 @@ function clear_row(){
 }
 
 
-
 // подсчет очков в функции clear_row
 function check_score(i,j){
 	if (biom[i][j] == 1) score += 30;
@@ -292,4 +372,36 @@ function check_score(i,j){
 	if (biom[i][j] == 5) score += 25;
 	if (biom[i][j] == 6) score += 30;
 	// console.log('score = ',score);
+}
+
+
+
+function showInfo(){
+	info_box.classList.toggle('ani');
+
+	if (!info_box.classList.contains('ani')){
+		let date1 = Date.now();
+		showMenu1 = setInterval( () => {
+			if((Date.now() - date1) > 5000) {
+				clearInterval(showMenu1);
+				if (!info_box.classList.contains('ani')) {
+					info_box.classList.toggle('ani');
+				}
+			}
+		}, 900);
+	} else clearInterval(showMenu1);
+}
+function showOption(){
+	option_box.classList.toggle('ani');
+	if (!option_box.classList.contains('ani')) {
+		let date2 = Date.now();
+		showMenu2 = setInterval( ()=> {
+			if((Date.now() - date2) > 5000) {
+				clearInterval(showMenu2);
+				if (!option_box.classList.contains('ani')) {
+					option_box.classList.toggle('ani');
+				}
+			}
+		}, 900);
+	} else clearInterval(showMenu2);
 }

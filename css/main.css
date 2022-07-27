@@ -39,7 +39,7 @@ body{
 	cursor:default;}
 .panel > *{box-shadow:inset 0 0 6px 0px yellow;}
 .panel_btn{position:relative;}
-.icon{width:50px; height:50px;}
+.icon{width:50px; height:50px; cursor:pointer;}
 .panel_score{
 	position:relative;
 	height:50px;
@@ -60,6 +60,8 @@ body{
 .score_bg{opacity:.9}
 .score_info{color:#fa915e;}
 
+
+
 .option_box,.info_box{
 	position:absolute;
 	top:50px;
@@ -69,8 +71,16 @@ body{
 	box-shadow:inset 0 0 6px 0px yellow;
 	text-align:center;
 	line-height:1;
-	font-size:24px;}
+	font-size:24px;
+	transition:all .3s, opacity .5s;
+}
 .option_box{left:-80px;}
+.option_btn_start{font-size:22px; line-height:26px; cursor:pointer;}
+.option_box.ani{
+	opacity:0;
+	left:0;
+	transition:all .3s, opacity .2s;
+}
 .info_box{right:-80px;}
 .info_box div,.option_box div{
 	width:60px;
@@ -83,6 +93,12 @@ body{
 }
 .info_box span,.option_box span{font-size:18px;}
 .info_box .bsp{font-size:40px; vertical-align:text-top; line-height:0}
+.info_box.ani{
+	opacity:0;
+	right:0;
+	transition:all .3s, opacity .2s;
+}
+
 
 /* оформление input (.filling) */
 .filling{

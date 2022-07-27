@@ -1,12 +1,18 @@
 *{margin:0; padding:0; box-sizing:border-box;}
 
+body{
+	min-width:100vw;
+	min-height:100vh;
+}
+
 .game{
 	display:flex;
 	flex-wrap:wrap;
 	align-items:center;
 	justify-content:center;
-	width:100vw;
+	width:100%;
 	height:100vh;
+	padding:20px;
 	flex-direction:column;
 	/* background:#74c692;
 	background:#89d4b9;
@@ -29,10 +35,9 @@
 	text-align:center;
 	line-height:50px;
 	background:#373750;
-}
-.panel > *{
-	box-shadow:inset 0 0 6px 0px yellow
-}
+	user-select:none;
+	cursor:default;}
+.panel > *{box-shadow:inset 0 0 6px 0px yellow;}
 .panel_btn{position:relative;}
 .icon{width:50px; height:50px;}
 .panel_score{
@@ -52,9 +57,8 @@
 	height:100%;
 	white-space: pre;
 }
-.score_info{
-	color:#fa915e;
-}
+.score_bg{opacity:.9}
+.score_info{color:#fa915e;}
 
 .option_box,.info_box{
 	position:absolute;
@@ -66,29 +70,19 @@
 	text-align:center;
 	line-height:1;
 	font-size:24px;}
-.option_box{
-	left:-80px;
-}
-
-.info_box{
-	right:-80px;
-	/* text-align:center;
-	line-height:1;
-	font-size:24px; */
-}
+.option_box{left:-80px;}
+.info_box{right:-80px;}
 .info_box div,.option_box div{
 	width:60px;
 	height:54px;
 	letter-spacing:0;
 	margin:10px 10px 42px;
 	padding:1px;
-	background:#e3d3f0;
+	background:#eee;
 	border-radius:4px;
 }
-.info_box span,.option_box span{
-	font-size:18px;
-}
-
+.info_box span,.option_box span{font-size:18px;}
+.info_box .bsp{font-size:40px; vertical-align:text-top; line-height:0}
 
 /* оформление input (.filling) */
 .filling{
@@ -122,9 +116,9 @@
 .filling::-ms-thumb {border-radius:45%; height:30px; width:30px; background:#4646b9; margin:0;}
 
 /* Оформление полосы диапазона */
-.filling::-webkit-slider-runnable-track {background:#e3d3f0; border-radius:15px; height:30px;}
-.filling:focus::-webkit-slider-runnable-track {background:#e3d3f0; border-radius:15px; height:30px;}
-.filling::-moz-range-track {background:#e3d3f0; border-radius:15px; height:30px;}
+.filling::-webkit-slider-runnable-track {background:#eee; border-radius:15px; height:30px;}
+.filling:focus::-webkit-slider-runnable-track {background:#eee; border-radius:15px; height:30px;}
+.filling::-moz-range-track {background:#eee; border-radius:15px; height:30px;}
 .filling::-ms-track {
 	background:transparent;
 	border-color:transparent;
@@ -132,33 +126,16 @@
 	color:transparent;
 	border-radius:15px;
 }
-.filling::-ms-fill-lower {background:#e3d3f0}
-.filling::-ms-fill-upper {background:#e3d3f0}
-.filling:focus::-ms-fill-lower {background:#e3d3f0}
-.filling:focus::-ms-fill-upper {background:#e3d3f0}
-
-
-
-
-
-
+.filling::-ms-fill-lower {background:#eee}
+.filling::-ms-fill-upper {background:#eee}
+.filling:focus::-ms-fill-lower {background:#eee}
+.filling:focus::-ms-fill-upper {background:#eee}
 
 
 
 
 
 /* start game */
-.btn_start{
-	padding:10px 15px;
-	font-size:22px;
-	background:#eee;
-	border-radius:6px;
-	margin:10px 0;
-	letter-spacing:1px;
-	text-transform:uppercase;
-	cursor:pointer;
-}
-
 .game_box {
 	width:336px;
 	height:458px;
@@ -166,9 +143,7 @@
 	background:#26322b;
 	font-size:8px;
 	position:relative;
-	/* cursor:none; */
 }
-
 .bg_fild, .biom{
 	position:absolute;
 	top:5px;
@@ -188,36 +163,71 @@
 	display:flex;
 	flex-direction:column-reverse;
 	align-items:center;
-	/* box-shadow:inset 0 0 1px 1px #555; */
 }
-
-i{
+.game_box i{
 	display:block;
 	font-size:0;
 	line-height:0;
 	position:relative;
-}
-
-.bg_fild i {
 	width:28px;
 	height:28px;
 	margin:1px;
-	/* box-shadow:inset 0 0 1px 1px #9da28e; */
-	background:rgba(212, 214, 207, 0.1);
 	border-radius:45%;
 }
+.bg_fild i {background:rgba(212, 214, 207, 0.1);}
 
+.el0{color:transparent;}
+.el1{color:#3c36ff}
+.el2{color:#e418e8}
+.el3{color:#f12525}
+.el4{color:#10b620}
+.el5{color:#5ae4e0}
+.el6{color:#f3ff12}
 .biom i {
-	width:28px;
-	height:28px;
-	margin:1px;
-	border-radius:45%;
 	pointer-events:auto;
 	cursor:pointer;
 	background:currentColor;
 	/* box-shadow:0 0 5px 0px currentColor; */
 }
 
+
+
+.game_menu{
+	width:332px;
+	height:453px;
+	margin:2px;
+	position:absolute;
+	top:0;
+	left:0;
+	background:rgba(65, 105, 99, 0.68);
+	text-align:center;
+	opacity:1;
+	transition:opacity .3s;
+
+	display:flex;
+	flex-wrap:wrap;
+	align-items:center;
+	justify-content:center;
+	flex-direction:column;
+}
+.btn_start{
+	padding:10px 15px;
+	font-size:22px;
+	background:#eee;
+	border-radius:6px;
+	margin:10px auto;
+	letter-spacing:1px;
+	text-transform:uppercase;
+	cursor:pointer;
+}
+.game_menu.ani{
+	transform:scale(0);
+	font-size:0;
+	margin:0;
+	background:transparent;
+	opacity:0;
+	transition:opacity  .4s;
+}
 
 
 
@@ -259,22 +269,14 @@ i{
 .del::after{content:'\1F31F'}
 
 
-
 /* цвета шаров и отображаемые очки */
-.el0{color:transparent;}
+/* .el0{color:transparent;}
 .el1{color:#3c36ff}
 .el2{color:#e418e8}
 .el3{color:#f12525}
 .el4{color:#10b620}
 .el5{color:#5ae4e0}
-.el6{color:#f3ff12}
-/* .el0{background:transparent;}
-.el1{background:#3c36ff}
-.el2{background:#e418e8}
-.el3{background:#f12525}
-.el4{background:#10b620}
-.el5{background:#5ae4e0}
-.el6{background:#f3ff12} */
+.el6{color:#f3ff12} */
 .del.el0::before,.el0::after{content:''}
 .del.el1::before{content:'30'}
 .del.el2::before{content:'25'}

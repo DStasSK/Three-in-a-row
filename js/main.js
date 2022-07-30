@@ -1,44 +1,46 @@
-const game_menu = document.querySelector('.game_menu')
-const start = document.querySelector('.btn_start')
-const option_btn_start = document.querySelector('.option_btn_start')
-const fild_box = document.querySelector('.bg_fild')
-const biom_box = document.querySelector('.biom')
-const option = document.querySelector('.option')
-const option_box = document.querySelector('.option_box')
-const info = document.querySelector('.info')
-const info_box = document.querySelector('.info_box')
-const score_bg = document.querySelector('.score_bg')
-const score_info = document.querySelector('.score_info')
+const game_menu = document.querySelector('.game_menu');
+const btn_start = document.querySelector('.btn_start');
+const option_btn_start = document.querySelector('.option_btn_start');
+const fild_box = document.querySelector('.bg_fild');
+const biom_box = document.querySelector('.biom');
+const option = document.querySelector('.option');
+const option_box = document.querySelector('.option_box');
+const info = document.querySelector('.info');
+const info_box = document.querySelector('.info_box');
+const score_bg = document.querySelector('.score_bg');
+const score_info = document.querySelector('.score_info');
+const message = document.querySelector('.message');
+const result = document.querySelector('.result');
+
 
 // прослушивание клавиш
 document.addEventListener('keydown', keys);
-start.addEventListener('click', game_start);   // начало игры
+btn_start.addEventListener('click', game_start);   // начало игры
 option_btn_start.addEventListener('click', game_start);
-option.addEventListener('click', showOption);  // показать меню опций
-info.addEventListener('click', showInfo);      // показать меню информации
+option.addEventListener('click', showOption);      // показать меню опций
+info.addEventListener('click', showInfo);          // показать меню информации
 
-let biom = [];   // основное поле данных
-let biom_boom=[];
+let biom = [];     // основное поле данных
+let biom_boom=[];  // биом для очистки по нему основного биома
 
-let find_row = false;
+let find_row = false;           // статус обнаружения 3-х в ряд
 let start_game_status = false;
 let game_status = false;
-let ball_status = false;
-let clear_status = 0;
+let ball_status = false;        // нужно ли выпускать новый шар
+let clear_status = 0;           // статус очистки от 3-х в ряд
 
-let ball_x;
-let ball_y;
-let interval;
-let interval_del;
+let ball_x;         // текущая коорданата падающего шара по Х
+let ball_y;         // текущая координата падающего шара по Y
+let interval;       // основной интервал движения шаров
+let interval_del;   // интервал удаления шаров - для анимации
 
 let score = 0;            // счетчик очков
 let score_str = 0;
-let timeBySpep = 400;     // время прохождения шаром одной клетки ms
+let timeBySpep = 420;     // время прохождения шаром одной клетки ms
 let timeClearSpep = 450;  // время на удаления элементов ms
 let x = 11; // ширина поля
 let y = 15; // высота поля
-let h = 12; // количество заполненных линий на старте
-
+let h = 8;  // количество заполненных линий на старте
 
 
 
@@ -66,7 +68,6 @@ function keys(event){
 		start_game_status = false;
 		game_status = false;
 		clearInterval(interval);
-		start.innerHTML = 'new game';
 		game_start();
 	}
 
@@ -106,6 +107,7 @@ function keys(event){
 	}
 }
 
+
 // построение элементов в HTML документе согласно биому
 function biom_push(x,y,zz){
 	fild = '';
@@ -129,38 +131,6 @@ function biom_push(x,y,zz){
 }
 
 
-// удаление элемента по клику на нем
-biom_box.onclick = (e)=>{
-	let biom_columns = document.querySelectorAll('.biom .col');
-	let i = 0;
-	let j = 0;
-	for (let el of biom_columns){
-		let exit = false;
-		let col = el.children;
-		j = 0;
-		for (let el_i of col){
-			if(el_i == e.target){
-				e.target.classList.add('del');
-				exit = true;
-				for (let k = j; k<y; k++){
-					biom[i][k] = biom[i][k+1];
-					if(biom[i][k]==undefined) biom[i][k] = 0;
-				}
-				setTimeout(()=>{e.target.remove();}, 200)
-				break;
-			}
-			j++;
-		}
-		if(exit) break;
-		i++;
-	}
-	clearInterval(interval_del);
-	clear_status = 0;
-	interval_del = setInterval(clear_row, timeClearSpep);
-	clearInterval(interval);
-}
-
-
 // начало игры
 function game_start(){
 	game_status = false;
@@ -168,7 +138,7 @@ function game_start(){
 	score_str = 0;
 
 	if (!game_menu.classList.contains('ani')) game_menu.classList.toggle('ani');
-
+	if (!message.classList.contains('ani')) message.classList.toggle('ani');
 	if(!game_status) {
 		// страртовое заполнение биома
 		biom_push(x,y,1);
@@ -186,11 +156,16 @@ function game_start(){
 
 // pause
 function pause(){
+	btn_start.removeEventListener('click', game_start);
+	btn_start.addEventListener('click', pause);
 	if(game_status){
 		if(start_game_status) {
 			start_game_status = false;
-			start.innerHTML = 'пауза';
+			btn_start.innerHTML = 'пауза';
 			game_menu.classList.toggle('ani');
+			if (!message.classList.contains('ani')) {
+				message.classList.toggle('ani');
+			}
 			clearInterval(interval);
 		}
 		else {
@@ -205,10 +180,16 @@ function pause(){
 
 // game over
 function game_over(){
+	btn_start.removeEventListener('click', pause);
+	btn_start.addEventListener('click', game_start);
 	clearInterval(interval);
 	start_game_status = false;
 	game_status = false;
-	start.innerHTML = 'игра окончена';
+	if (message.classList.contains('ani')) {
+		message.classList.toggle('ani');
+	}
+	result.innerHTML = `${score}`;
+	btn_start.innerHTML = 'Играть снова';
 
 	if (game_menu.classList.contains('ani')) {
 		game_menu.classList.toggle('ani');
@@ -245,13 +226,14 @@ function move_ball(){
 				clear_status = 0;
 				interval_del = setInterval(clear_row, timeClearSpep);
 			} else {
+				add_status = true;
 				ball_status = true;
-				ball_y = y - 1;
+				ball_y = y;
 
 				// генерация линии падения
 				ball_x = Math.round(Math.random()*(x - 1));
 
-				if(biom[ball_x][ball_y]==0) {
+				if(biom[ball_x][ball_y-1]==0) {
 					// генерация цвета мяча
 					biom[ball_x][ball_y] = Math.round(Math.random()*5) + 1;
 				}
@@ -265,7 +247,7 @@ function move_ball(){
 }
 
 
-// движение мяча игроком
+// движение мяча игроком - влево, вправо, вниз
 function to_left(){
 	if((ball_x-1) >= 0 && biom[ball_x-1][ball_y]==0 && biom[ball_x][ball_y-1]==0){
 		biom[ball_x-1][ball_y] = biom[ball_x][ball_y];
@@ -292,8 +274,6 @@ function to_down(){
 	}
 	biom_push(x,y);
 }
-
-
 
 
 // поиск совпадений 3 в ряд и более для удаления
@@ -402,12 +382,12 @@ function clear_row(){
 
 // подсчет очков в функции clear_row
 function check_score(i,j){
-	if (biom[i][j] == 1) score += 30;
-	if (biom[i][j] == 2) score += 25;
-	if (biom[i][j] == 3) score += 20;
-	if (biom[i][j] == 4) score += 20;
-	if (biom[i][j] == 5) score += 25;
-	if (biom[i][j] == 6) score += 30;
+	if (biom[i][j] == 1) score += 90;
+	if (biom[i][j] == 2) score += 75;
+	if (biom[i][j] == 3) score += 60;
+	if (biom[i][j] == 4) score += 60;
+	if (biom[i][j] == 5) score += 75;
+	if (biom[i][j] == 6) score += 90;
 	// console.log('score = ',score);
 
 	if (score_str < 7){
@@ -445,10 +425,12 @@ function check_score(i,j){
 }
 
 
-// открытие и закрытие меню
+// открытие и закрытие меню опций и информации
+let showMenu1, showMenu2;
 function showInfo(){
+	clearInterval(showMenu1);
 	info_box.classList.toggle('ani');
-
+	info.classList.toggle('ani');
 	if (!info_box.classList.contains('ani')){
 		let date1 = Date.now();
 		showMenu1 = setInterval( () => {
@@ -457,12 +439,17 @@ function showInfo(){
 				if (!info_box.classList.contains('ani')) {
 					info_box.classList.toggle('ani');
 				}
+				if (info.classList.contains('ani')){
+					info.classList.toggle('ani');
+				}
 			}
 		}, 900);
 	} else clearInterval(showMenu1);
 }
 function showOption(){
+	clearInterval(showMenu2);
 	option_box.classList.toggle('ani');
+	option.classList.toggle('ani');
 	if (!option_box.classList.contains('ani')) {
 		let date2 = Date.now();
 		showMenu2 = setInterval( ()=> {
@@ -471,7 +458,32 @@ function showOption(){
 				if (!option_box.classList.contains('ani')) {
 					option_box.classList.toggle('ani');
 				}
+				if (option.classList.contains('ani')) {
+					option.classList.toggle('ani');
+				}
 			}
 		}, 900);
 	} else clearInterval(showMenu2);
+}
+
+
+// выбор количества заполненных начальных строк
+const filling = document.querySelector('.filling');
+filling.addEventListener('change', setBalls);
+function setBalls(){
+	clearInterval(showMenu2);
+	h = filling.value;
+
+	let date2 = Date.now();
+	showMenu2 = setInterval( ()=> {
+		if((Date.now() - date2) > 7000) {
+			clearInterval(showMenu2);
+			if (!option_box.classList.contains('ani')) {
+				option_box.classList.toggle('ani');
+			}
+			if (option.classList.contains('ani')) {
+				option.classList.toggle('ani');
+			}
+		}
+	}, 900);
 }

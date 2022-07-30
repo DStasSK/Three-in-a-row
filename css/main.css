@@ -223,6 +223,7 @@ body{min-width:100vw; min-height:100vh; font-family:sans-serif;}
 }
 .bg_fild i {background:rgba(212, 214, 207, 0.1);}
 
+/* цвета шаров */
 .el0{color:transparent;}
 .el1{color:#3c36ff}
 .el2{color:#e418e8}
@@ -349,11 +350,10 @@ body{min-width:100vw; min-height:100vh; font-family:sans-serif;}
 .el4{color:#10b620}
 .el5{color:#5ae4e0}
 .el6{color:#f3ff12} */
-
 .del.el0::before,.el0::after{content:''}
-.del.el1::before{content:'30'}
-.del.el2::before{content:'25'}
-.del.el3::before{content:'20'}
-.del.el4::before{content:'20'}
-.del.el5::before{content:'25'}
-.del.el6::before{content:'30'}
+.del.el1::before{content:'90'}
+.del.el2::before{content:'75'}
+.del.el3::before{content:'60'}
+.del.el4::before{content:'60'}
+.del.el5::before{content:'75'}
+.del.el6::before{content:'90'}

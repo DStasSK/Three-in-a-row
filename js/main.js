@@ -12,7 +12,6 @@ const score_info = document.querySelector('.score_info');
 const message = document.querySelector('.message');
 const result = document.querySelector('.result');
 
-
 // прослушивание клавиш
 document.addEventListener('keydown', keys);
 btn_start.addEventListener('click', game_start);   // начало игры
@@ -24,8 +23,8 @@ let biom = [];     // основное поле данных
 let biom_boom=[];  // биом для очистки по нему основного биома
 
 let find_row = false;           // статус обнаружения 3-х в ряд
-let start_game_status = false;
-let game_status = false;
+let start_game_status = false;  // стату запуска новой игры
+let game_status = false;        // статус игры - для паузы
 let ball_status = false;        // нужно ли выпускать новый шар
 let clear_status = 0;           // статус очистки от 3-х в ряд
 
@@ -46,7 +45,7 @@ let h = 8;  // количество заполненных линий на ст�
 
 // стартовая генерация биома и поля в документе
 let fild = '';
-for (let i = 0; i<x; i++){
+for (let i = 0; i < x; i++){
 	fild += '<div class="col">';
 	biom[i] = [];
 	biom_boom[i] = [];
@@ -110,10 +109,10 @@ function keys(event){
 
 // построение элементов в HTML документе согласно биому
 function biom_push(x,y,zz){
-	fild = '';
+	let biom_fild = '';
 	let del = ''
 	for (let i = 0; i<x; i++){
-		fild += '<div class="col">';
+		biom_fild += '<div class="col">';
 		for (let j=0; j<y; j++){
 			if((zz==1) && j<h) {biom[i][j] = 1 + Math.round(Math.random()*5)}
 			if((zz==1) && j>=h) {biom[i][j] = 0}
@@ -123,11 +122,11 @@ function biom_push(x,y,zz){
 				if(biom_boom[i][j]==1) {del = 'del'}
 				else {del = ''}
 			}
-			fild +=`<i class="el${biom[i][j]} ${del}"></i>`;
+			biom_fild +=`<i class="el${biom[i][j]} ${del}"></i>`;
 		}
-		fild += '</div>'
+		biom_fild += '</div>'
 	}
-	biom_box.innerHTML = fild;
+	biom_box.innerHTML = biom_fild;
 }
 
 
@@ -220,6 +219,7 @@ function move_ball(){
 			}
 		}
 		if (!ball_status) {
+			addBall();
 			boom();
 			if(find_row){
 				clearInterval(interval_del);
@@ -247,7 +247,7 @@ function move_ball(){
 }
 
 
-// движение мяча игроком - влево, вправо, вниз
+// движение мяча игроком
 function to_left(){
 	if((ball_x-1) >= 0 && biom[ball_x-1][ball_y]==0 && biom[ball_x][ball_y-1]==0){
 		biom[ball_x-1][ball_y] = biom[ball_x][ball_y];
@@ -486,4 +486,27 @@ function setBalls(){
 			}
 		}
 	}, 900);
+}
+
+
+let add_status = false;
+// добавляем шар в нижнюю доступную точку
+function addBall(){
+	if(add_status){
+		add_status = false;
+		let fild_for_add = [];
+		let e = false;
+		let j = 0;
+		for(j=0; j<y; j++){
+			for(let i=0; i<x; i++){
+				if(biom[i][j]==0){
+					e = true;
+					fild_for_add.push(i);
+				}
+			}
+			if(e) break;
+		}
+		let place = Math.round(Math.random()*(fild_for_add.length-1));
+		biom[fild_for_add[place]][j] = Math.round(Math.random()*5) + 1;
+	}
 }

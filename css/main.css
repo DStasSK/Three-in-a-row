@@ -1,10 +1,5 @@
 *{margin:0; padding:0; box-sizing:border-box;}
-
-body{
-	min-width:100vw;
-	min-height:100vh;
-}
-
+body{min-width:100vw; min-height:100vh; font-family:sans-serif;}
 .game{
 	display:flex;
 	flex-wrap:wrap;
@@ -14,10 +9,7 @@ body{
 	height:100vh;
 	padding:20px;
 	flex-direction:column;
-	/* background:#74c692;
-	background:#89d4b9;
-	background:#9ad196; */
-	background:#baa3c8;
+	background:#d8c3e6;
 }
 
 
@@ -31,21 +23,46 @@ body{
 	margin:20px 0 0;
 	height:50px;
 	width:336px;
-	font-size:26px;
+	font-size:28px;
 	text-align:center;
 	line-height:50px;
 	background:#373750;
 	user-select:none;
-	cursor:default;}
+	cursor:default;
+}
 .panel > *{box-shadow:inset 0 0 6px 0px yellow;}
 .panel_btn{position:relative;}
-.icon{width:50px; height:50px; cursor:pointer;}
+.icon{
+	width:50px;
+	height:50px;
+	cursor:pointer;
+	font-size:38px;
+	line-height:50px;
+	font-weight:600;
+	color:rgba(238, 238, 238, 0.9);
+}
+.icon::before{
+	display:block;
+	width:100%;
+	height:100%;
+	transition:.2s
+}
+.option::before{content:'\2699';}
+.info::before{
+	content:'\24D8';
+	font-size:29px;
+	font-weight:900;
+	line-height:48px;
+}
+.option.ani::before,.info.ani::before{color:#fff; transition:.2s;}
+
+
+
 .panel_score{
 	position:relative;
 	height:50px;
 	letter-spacing:1.5px;
 	font-family:monospace;
-	color:#fa915e;
 	color:#d5dd4d;
 	flex:1;
 }
@@ -70,18 +87,12 @@ body{
 	background:#38433C;
 	box-shadow:inset 0 0 6px 0px yellow;
 	text-align:center;
-	line-height:1;
-	font-size:24px;
+	line-height:24px;
+	font-size:21px;
+	letter-spacing:-.5px;
 	transition:all .3s, opacity .5s;
 }
-.option_box{left:-80px;}
-.option_btn_start{font-size:22px; line-height:26px; cursor:pointer;}
-.option_box.ani{
-	opacity:0;
-	left:0;
-	transition:all .3s, opacity .2s;
-}
-.info_box{right:-80px;}
+.option_box{right:-80px;}
 .info_box div,.option_box div{
 	width:60px;
 	height:54px;
@@ -91,20 +102,40 @@ body{
 	background:#eee;
 	border-radius:4px;
 }
-.info_box span,.option_box span{font-size:18px;}
-.info_box .bsp{font-size:40px; vertical-align:text-top; line-height:0}
-.info_box.ani{
+.option_btn_start{
+	font-size:21px;
+	line-height:26px;
+	cursor:pointer;
+	letter-spacing:-1px;
+}
+.option_box.ani{
 	opacity:0;
 	right:0;
 	transition:all .3s, opacity .2s;
 }
+.option_rows{
+	font-size:21px;
+	margin-top:-20px !important;;
+	height:auto;
+	line-height:16px;
+}
+.info_box{left:-80px;}
+.info_box span,.option_box span{font-size:18px;}
+.info_box .bsp{font-size:40px; vertical-align:text-top; line-height:0}
+.info_box.ani{
+	opacity:0;
+	left:0;
+	transition:all .3s, opacity .2s;
+}
+
+
 
 
 /* оформление input (.filling) */
 .filling{
 	width:150px;
 	height:30px;
-	transform:rotate(90deg);
+	transform:rotate(-90deg);
 	cursor:pointer;
 	margin:25px 0;
 	position:absolute;
@@ -151,7 +182,7 @@ body{
 
 
 
-/* start game */
+/* game */
 .game_box {
 	width:336px;
 	height:458px;
@@ -217,6 +248,7 @@ body{
 	left:0;
 	background:rgba(65, 105, 99, 0.68);
 	text-align:center;
+	font-size:22px;
 	opacity:1;
 	transition:opacity .3s;
 
@@ -226,16 +258,6 @@ body{
 	justify-content:center;
 	flex-direction:column;
 }
-.btn_start{
-	padding:10px 15px;
-	font-size:22px;
-	background:#eee;
-	border-radius:6px;
-	margin:10px auto;
-	letter-spacing:1px;
-	text-transform:uppercase;
-	cursor:pointer;
-}
 .game_menu.ani{
 	transform:scale(0);
 	font-size:0;
@@ -244,6 +266,40 @@ body{
 	opacity:0;
 	transition:opacity  .4s;
 }
+.result_message{
+	/* background:#d6f1e5; */
+	background:#373750;
+	padding:15px;
+	color:#d5dd4d;
+	box-shadow:inset 0 0 6px 0px yellow;
+}
+.message{
+	font-size:24px;
+	line-height:34px;
+}
+.message.ani{
+	display:none;
+}
+.result{
+	color:#fa915e;
+	font-family:monospace;
+	font-size:28px;
+	padding:5px 0;
+}
+.btn_start{
+	padding:10px 15px;
+	margin:10px;
+	min-width:160px;
+	font-size:22px;
+	background:#eee;
+	border-radius:6px;
+	letter-spacing:1px;
+	text-transform:uppercase;
+	cursor:pointer;
+	color:#333;
+	font-weight:500;
+}
+
 
 
 
@@ -293,6 +349,7 @@ body{
 .el4{color:#10b620}
 .el5{color:#5ae4e0}
 .el6{color:#f3ff12} */
+
 .del.el0::before,.el0::after{content:''}
 .del.el1::before{content:'30'}
 .del.el2::before{content:'25'}

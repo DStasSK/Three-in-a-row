@@ -8,10 +8,13 @@
 <div class="game">
 	<div class="panel">
 		<div class="panel_btn">
-			<div class="icon option">o</div>
-			<div class="option_box ani">
-				<div class="option_btn_start">NewG<br><span>N</span></div>
-				<input type="range" min="6" max="10" value="8" class="filling">
+			<div class="icon info" title="info"><!-- &#9432; --></div>
+			<div class="info_box ani">
+				<div>left<br><span>A & &larr;</span></div>
+				<div>right<br><span>D & &rarr;</span></div>
+				<div>down<br><span>S & &darr;</span></div>
+				<div>pause<br><span class="bsp">&#9141;</span></div>
+				<div>GG<br><span>G</span></div>
 			</div>
 		</div>
 
@@ -21,13 +24,11 @@
 		</div>
 
 		<div class="panel_btn">
-			<div class="icon info">i</div>
-			<div class="info_box ani">
-				<div>left<br><span>A & &larr;</span></div>
-				<div>right<br><span>D & &rarr;</span></div>
-				<div>down<br><span>S & &darr;</span></div>
-				<div>pause<br><span class="bsp">&#9141;</span></div>
-				<div>GG<br><span>G</span></div>
+			<div class="icon option" title="options"><!-- &#9881; --></div>
+			<div class="option_box ani">
+				<div class="option_btn_start">NewG<br><span>N</span></div>
+				<div class="option_rows">rows<br>on start</div>
+				<input type="range" min="6" max="10" value="8" class="filling">
 			</div>
 		</div>
 	</div>
@@ -37,13 +38,14 @@
 		<div class="biom"></div>
 
 		<div class="game_menu">
-			<div class="result_message" hidden>
-				<div class="message">
+			<div class="result_message">
+				<div class="message ani">
 					<span>Игра окончена</span>
-					<br>ваш результат</div>
-				<div class="result">1</div>
+					<br>ваш результат:
+					<div class="result"></div>
+				</div>
+				<div class="btn_start">Новая игра</div>
 			</div>
-			<div class="btn_start">new game</div>
 		</div>
 
 	</div>

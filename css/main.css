@@ -223,22 +223,6 @@ body{min-width:100vw; min-height:100vh; font-family:sans-serif;}
 }
 .bg_fild i {background:rgba(212, 214, 207, 0.1);}
 
-/* цвета шаров */
-.el0{color:transparent;}
-.el1{color:#3c36ff}
-.el2{color:#e418e8}
-.el3{color:#f12525}
-.el4{color:#10b620}
-.el5{color:#5ae4e0}
-.el6{color:#f3ff12}
-.biom i {
-	pointer-events:auto;
-	cursor:pointer;
-	background:currentColor;
-	/* box-shadow:0 0 5px 0px currentColor; */
-}
-
-
 
 .game_menu{
 	width:332px;
@@ -268,7 +252,6 @@ body{min-width:100vw; min-height:100vh; font-family:sans-serif;}
 	transition:opacity  .4s;
 }
 .result_message{
-	/* background:#d6f1e5; */
 	background:#373750;
 	padding:15px;
 	color:#d5dd4d;
@@ -303,12 +286,26 @@ body{min-width:100vw; min-height:100vh; font-family:sans-serif;}
 
 
 
+/* цвета шаров */
+.el0{color:transparent;}
+.el1{color:#3c36ff}
+.el2{color:#e418e8}
+.el3{color:#f12525}
+.el4{color:#10b620}
+.el5{color:#5ae4e0}
+.el6{color:#f3ff12}
+.biom i {
+	pointer-events:auto;
+	background:currentColor;
+}
+
+
 
 /* анимирование очков */
 .del{animation:delete 0.5s linear 1 forwards}
 @keyframes delete {
-	0%	 {width:28px; height:28px; margin:1px;}
-	90%	{width:0; height:0; margin:15px;}
+	0%   {width:28px; height:28px; margin:1px;}
+	90%  {width:0; height:0; margin:15px;}
 	100% {width:0; height:0; margin:0; background:transparent;}
 }
 .del::before,.del::after{
@@ -326,8 +323,8 @@ body{min-width:100vw; min-height:100vh; font-family:sans-serif;}
 	animation:score 0.4s linear 1 forwards
 }
 @keyframes score {
-	0%	 {opacity:1; top:0; left:0}
-	70%	{opacity:1; top:-40px; left:0}
+	0%   {opacity:1; top:0; left:0}
+	70%  {opacity:1; top:-40px; left:0}
 	100% {opacity:0; top:-50px; left:0}
 }
 .del::before{

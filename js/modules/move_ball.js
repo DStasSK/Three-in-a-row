@@ -28,7 +28,7 @@ function move_ball(){
 			if(find_row){
 				clearInterval(interval_del);
 				clear_status = 0;
-				interval_del = setInterval(clear_row, timeClearSpep);
+				interval_del = setInterval(clear_row, timeClearStep);
 			} else {
 				add_status = true;
 				ball_status = true;

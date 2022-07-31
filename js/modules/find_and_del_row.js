@@ -92,7 +92,7 @@ function clear_row(){
 		clear_status=2;
 		if (clear_status == 2) {
 			clearInterval(interval_del);
-			interval = setInterval(move_ball, timeBySpep);
+			interval = setInterval(move_ball, timeByStep);
 		}
 	}
 }

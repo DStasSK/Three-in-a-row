@@ -16,7 +16,7 @@ game.m.to_left = function(){
 		game.fild.biom[game.ball_x-1][game.ball_y] = game.fild.biom[game.ball_x][game.ball_y];
 		game.fild.biom[game.ball_x][game.ball_y] = 0;
 		game.ball_x--;
-		game.m.biom_push(game.fild.x, game.fild.y);
+		game.m.biom_push();
 	}
 }
 
@@ -29,13 +29,13 @@ function to_right(){
 	}
 }
 game.m.to_right = function(){
-	if((game.fild.game.ball_x+1) < game.fild.x
+	if((game.ball_x+1) < game.fild.x
 	&& game.fild.biom[game.ball_x+1][game.ball_y] == 0
 	&& game.fild.biom[game.ball_x][game.ball_y-1] == 0) {
 		game.fild.biom[game.ball_x+1][game.ball_y] = game.fild.biom[game.ball_x][game.ball_y];
 		game.fild.biom[game.ball_x][game.ball_y] = 0;
 		game.ball_x++;
-		game.m.biom_push(game.fild.x, game.fild.y);
+		game.m.biom_push();
 	}
 }
 
@@ -53,7 +53,8 @@ game.m.to_down = function(){
 		game.fild.biom[game.ball_x][game.ball_y] = 0;
 		game.ball_y--;
 	}
-	game.m.biom_push(game.fild.x, game.fild.y);
+	game.m.biom_push();
 }
 
 // export {to_left, to_right, to_down};
+// export {game};

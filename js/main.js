@@ -102,9 +102,9 @@ const game = {
 		boom:0,
 		clear_row:0,
 		move_ball:0,
-
-
-
+		check_score:0,
+		addBall:0,
+		setBalls
 	},
 	aaa(a,b){
 		console.log('a =', a ,' b =', b);

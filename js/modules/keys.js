@@ -6,6 +6,7 @@
 document.write('<script src="./js/modules/game_live.js"></script>');
 document.write('<script src="./js/modules/player_arrow.js"></script>');
 document.write('<script src="./js/modules/showMenu.js"></script>');
+
 // import {game} from '../main.js';
 // import {game} from './game_live.js';
 // import {game} from './player_arrow.js';
@@ -106,7 +107,7 @@ game.m.keys = function(event){
 		game.m.to_right();
 	}
 }
-document.addEventListener('keydown', game.m.keys);
+// document.addEventListener('keydown', game.m.keys);
 
 
 // export {keys};

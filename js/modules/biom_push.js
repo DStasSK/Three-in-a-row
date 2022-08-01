@@ -51,11 +51,11 @@ function biom_push(x,y,zz){
 	else biom_box.innerHTML = biom_fild;
 }
 
-game.m.biom_push = function(x,y,zz){
+game.m.biom_push = function(zz){
 	let fild = '';
 	let biom_fild = '';
 	let del = ''
-	for (let i = 0; i < x; i++){
+	for (let i = 0; i < game.fild.x; i++){
 		if(zz==-1) {
 			fild += '<div class="col">';
 			game.fild.biom[i] = [];
@@ -65,7 +65,7 @@ game.m.biom_push = function(x,y,zz){
 			biom_fild += '<div class="col">';
 		}
 
-		for (let j=0; j < y; j++){
+		for (let j=0; j < game.fild.y; j++){
 			if((zz==1) && j< game.fild.h) {game.fild.biom[i][j] = 1 + Math.round(Math.random()*5)}
 			if((zz==1) && j>=game.fild.h) {game.fild.biom[i][j] = 0}
 
@@ -91,7 +91,7 @@ game.m.biom_push = function(x,y,zz){
 	else biom_box.innerHTML = biom_fild;
 }
 // стартовая генерация поля в документе и пустого массива биома
-// game.biom_push(x,y,-1);
+// game.m.biom_push(-1);
 
 // export {biom_push};
 // export {game};

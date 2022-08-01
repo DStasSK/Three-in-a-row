@@ -37,8 +37,9 @@ game.m.game_start = function(){
 	if (!game_menu.classList.contains('ani')) game_menu.classList.toggle('ani');
 	if (!message.classList.contains('ani')) message.classList.toggle('ani');
 	if(!game.status.game) {
-		// страртовое заполнение биома
-		biom_push(game.fild.x, game.fild.y, 1);
+		// страртовая генерация и заполнение биома
+		game.m.biom_push(1);
+
 		game.status.game = true;
 		game.score = 0;
 
@@ -136,6 +137,7 @@ game.m.game_over = function(){
 		game_menu.classList.toggle('ani');
 	}
 }
+
 btn_start.addEventListener('click', game.m.game_start);        // начало игры
 option_btn_start.addEventListener('click', game.m.game_start); // начало игры
 

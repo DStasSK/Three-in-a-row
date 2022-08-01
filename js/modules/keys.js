@@ -13,7 +13,7 @@ document.write('<script src="./js/modules/showMenu.js"></script>');
 // import {game} from './showMenu.js';
 
 
-document.addEventListener('keydown', keys);
+// document.addEventListener('keydown', keys);
 function keys(event){
 	// начало игры
 	if(event.key=='n'||event.key=='N'||event.key=='т'||event.key=='Т'||event.keyCode=='78') {
@@ -107,7 +107,7 @@ game.m.keys = function(event){
 		game.m.to_right();
 	}
 }
-// document.addEventListener('keydown', game.m.keys);
+document.addEventListener('keydown', game.m.keys);
 
 
 // export {keys};

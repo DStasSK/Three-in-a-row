@@ -2,8 +2,8 @@
 
 // открытие и закрытие меню опций и информации
 
-option.addEventListener('click', showOption);      // показать меню опций
-info.addEventListener('click', showInfo);          // показать меню информации
+// option.addEventListener('click', showOption);      // показать меню опций
+// info.addEventListener('click', showInfo);          // показать меню информации
 function showInfo(){
 	clearInterval(showMenuInfo);
 	info_box.classList.toggle('ani');
@@ -82,8 +82,8 @@ game.m.showOption = function(){
 		}, 900);
 	} else clearInterval(showMenuOption);
 }
-// option.addEventListener('click', game.m.showOption); // показать меню опций
-// info.addEventListener('click', game.m.showInfo);     // показать меню информации
+option.addEventListener('click', game.m.showOption); // показать меню опций
+info.addEventListener('click', game.m.showInfo);     // показать меню информации
 
 // export {showInfo, showOption};
 // export {game};

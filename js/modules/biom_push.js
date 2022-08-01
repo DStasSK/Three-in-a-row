@@ -79,7 +79,7 @@ game.m.biom_push = function(zz){
 				game.fild.biom_boom[i][j] = 0;
 			} else {
 				if(!game.fild.biom[i][j]) game.fild.biom[i][j]=0;
-				biom_fild +=`<i class="el${biom[i][j]} ${del}"></i>`;
+				biom_fild +=`<i class="el${game.fild.biom[i][j]} ${del}"></i>`;
 			}
 		}
 
@@ -91,7 +91,7 @@ game.m.biom_push = function(zz){
 	else biom_box.innerHTML = biom_fild;
 }
 // стартовая генерация поля в документе и пустого массива биома
-// game.m.biom_push(-1);
+game.m.biom_push(-1);
 
 // export {biom_push};
 // export {game};

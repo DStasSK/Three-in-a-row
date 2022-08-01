@@ -166,7 +166,7 @@ game.m.clear_row = function(){
 			if(game.fild.biom[i][j-1]==0 && game.fild.biom_boom[i][j-1]==0){
 				game.fild.biom[i].splice(j-1,1);
 				game.fild.biom[i].push(0);
-				game.staus.ball = false;
+				game.status.ball = false;
 			}
 		}
 	}

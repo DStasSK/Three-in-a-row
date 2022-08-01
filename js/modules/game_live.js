@@ -1,5 +1,5 @@
-btn_start.addEventListener('click', game_start);        // начало игры
-option_btn_start.addEventListener('click', game_start); // начало игры
+// btn_start.addEventListener('click', game_start);        // начало игры
+// option_btn_start.addEventListener('click', game_start); // начало игры
 // import {game} from '../main.js';
 
 
@@ -130,7 +130,7 @@ game.m.game_over = function(){
 	if (message.classList.contains('ani')) {
 		message.classList.toggle('ani');
 	}
-	result.innerHTML = `${score}`;
+	result.innerHTML = `${game.score}`;
 	btn_start.innerHTML = 'Играть снова';
 
 	if (game_menu.classList.contains('ani')) {

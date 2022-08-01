@@ -104,26 +104,22 @@ const game = {
 		move_ball:0,
 		check_score:0,
 		addBall:0,
-		setBalls
-	},
-	aaa(a,b){
-		console.log('a =', a ,' b =', b);
+		setBalls:0
 	}
 }
-game.aaa(1,2);
 
 // стартовая генерация поля в документе и пустого массива биома
 // biom_push(x,y,-1);
-let fild = '';
-for (let i = 0; i<x; i++){
-	fild += '<div class="col">';
-	biom[i] = [];
-	biom_boom[i] = [];
-	for (let j=0; j<y; j++){
-		fild +=`<i></i>`;
-		biom[i][j] = 0;
-		biom_boom[i][j] = 0;
-	}
-	fild += '</div>'
-}
-fild_box.innerHTML = fild;
+// let fild = '';
+// for (let i = 0; i<x; i++){
+// 	fild += '<div class="col">';
+// 	biom[i] = [];
+// 	biom_boom[i] = [];
+// 	for (let j=0; j<y; j++){
+// 		fild +=`<i></i>`;
+// 		biom[i][j] = 0;
+// 		biom_boom[i][j] = 0;
+// 	}
+// 	fild += '</div>'
+// }
+// fild_box.innerHTML = fild;

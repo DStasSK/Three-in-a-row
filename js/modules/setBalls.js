@@ -2,7 +2,7 @@
 
 // выбор количества заполненных начальных строк
 const filling = document.querySelector('.filling');
-filling.addEventListener('change', setBalls);
+// filling.addEventListener('change', setBalls);
 
 function setBalls(){
 	clearInterval(showMenuOption);
@@ -39,7 +39,7 @@ game.m.setBalls = function(){
 	}, 900);
 }
 
-// filling.addEventListener('change', game.m.setBalls);
+filling.addEventListener('change', game.m.setBalls);
 
 // export {setBalls};
 // export {game};

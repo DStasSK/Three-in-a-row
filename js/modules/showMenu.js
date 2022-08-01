@@ -1,3 +1,5 @@
+// import {game} from '../main.js';
+
 // открытие и закрытие меню опций и информации
 
 option.addEventListener('click', showOption);      // показать меню опций
@@ -45,3 +47,4 @@ function showOption(){
 }
 
 // export {showInfo, showOption};
+// export {game};

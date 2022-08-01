@@ -88,7 +88,24 @@ const game = {
 	score_str:0,      // для отображения набранных очков
 	ball_x:0,         // текущая коорданата падающего шара по Х
 	ball_y:0,         // текущая коорданата падающего шара по Y
-	m:{},
+	m:{
+		biom_push:0,
+		keys:0,
+		game_start:0,
+		pause:0,
+		game_over:0,
+		showOption:0,
+		showInfo:0,
+		to_left:0,
+		to_down:0,
+		to_right:0,
+		boom:0,
+		clear_row:0,
+		move_ball:0,
+
+
+
+	},
 	aaa(a,b){
 		console.log('a =', a ,' b =', b);
 	}

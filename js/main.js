@@ -60,6 +60,7 @@ let timeClearStep = 450;  // время на удаления элементов
 let x = 11; // ширина поля
 let y = 15; // высота поля
 let h = 8;  // количество заполненных линий на старте
+function clear_row(){}
 
 const game = {
 	interval:{
@@ -67,16 +68,14 @@ const game = {
 		timeClearStep:450,  // время на удаления элементов ms
 		showMenu:5000,      // время на отображение меню информации в showInfo(),showOption()
 		showMenuS:7000,     // время на отображение меню опций при настройке скролла в setBalls()
-		// interval:setInterval(move_ball, timeByStep),
-		// interval_del:setInterval(clear_row, timeClearSpep),
 	},
 	status:{
-		find_row: false,          // статус обнаружения 3-х в ряд
-		start_game_status: false, // стату запуска новой игры
-		game_status: false,       // статус игры - для паузы
-		ball_status: false,       // нужно ли выпускать новый шар
-		clear_status: 0,          // статус очистки от 3-х в ряд: 0 - не требуется
-		add_status: false         // статус для добалвения шара вниз биома
+		find_row: false,    // статус обнаружения 3-х в ряд
+		start_game: false,  // статуc запуска новой игры
+		game: false,        // статус игры - для паузы
+		ball: false,        // нужно ли выпускать новый шар
+		clear: 0,           // статус очистки от 3-х в ряд: 0 - не требуется
+		add: false          // статус для добалвения шара вниз биома
 	},
 	fild:{
 		biom:[],       // основное поле данных
@@ -88,9 +87,13 @@ const game = {
 	score:0,          // счетчик набранных очков
 	score_str:0,      // для отображения набранных очков
 	ball_x:0,         // текущая коорданата падающего шара по Х
-	ball_y:0          // текущая коорданата падающего шара по Y
+	ball_y:0,         // текущая коорданата падающего шара по Y
+	m:{},
+	aaa(a,b){
+		console.log('a =', a ,' b =', b);
+	}
 }
-
+game.aaa(1,2);
 
 // стартовая генерация поля в документе и пустого массива биома
 // biom_push(x,y,-1);

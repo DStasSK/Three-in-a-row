@@ -1,11 +1,10 @@
 // import {game} from '../main.js';
 // начало игры:
-// - установка констант
+// - установка констант???
 // - установка событий
 
 
 game.start_game = function(){
-	//
 	// const game_menu = document.querySelector('.game_menu');
 	// const btn_start = document.querySelector('.btn_start');
 	// const option_btn_start = document.querySelector('.option_btn_start');
@@ -21,16 +20,18 @@ game.start_game = function(){
 	// const result = document.querySelector('.result');
 	// const filling = document.querySelector('.filling');
 
-	console.log(1);
 	document.addEventListener('keydown', game.m.keys);   // прослушивание клавиш
 	btn_start.addEventListener('click', game.m.game_start);        // начало игры
 	option_btn_start.addEventListener('click', game.m.game_start); // начало игры
 	option.addEventListener('click', game.m.showOption); // показать меню опций
 	info.addEventListener('click', game.m.showInfo);     // показать меню информации
 	filling.addEventListener('change', game.m.setBalls); // выбор кол-ва заполненных строк на старте
+
+	// стартовая генерация поля в документе и пустого массива биома
+	game.m.biom_push(-1);
 }
-// const filling = document.querySelector('.filling');
-// filling.addEventListener('change', game.m.setBalls);
+
+
 game.start_game();
 
 // export {game};

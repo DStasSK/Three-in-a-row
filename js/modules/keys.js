@@ -12,8 +12,9 @@ document.write('<script src="./js/modules/showMenu.js"></script>');
 game.m.keys = function(event){
 	// начало новой игры
 	if(event.key=='n'||event.key=='N'||event.key=='т'||event.key=='Т'||event.keyCode=='78') {
-		if(game.status.start_game){
-			// задать вопрос о начале новой игры
+		if(game.status.game){
+			game.status.ask = 1;
+			game.m.ask();  // задать вопрос о начале новой игры
 		} else {
 			game.status.start_game = false;
 			game.status.game = false;
@@ -29,7 +30,10 @@ game.m.keys = function(event){
 
 	// конец игры
 	if(event.key=='g'||event.key=='G'||event.key=='п'||event.key=='П'||event.keyCode=='71'){
-		game.m.game_over();
+		if(game.status.game) {
+			game.status.ask = 0;
+			game.m.ask();
+		}
 	}
 
 	// открыть меню опций
@@ -58,6 +62,5 @@ game.m.keys = function(event){
 	}
 }
 
-// document.addEventListener('keydown', game.m.keys);
 
 // export {game};

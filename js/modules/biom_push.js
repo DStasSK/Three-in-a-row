@@ -51,7 +51,5 @@ game.m.biom_push = function(zz){
 	else biom_box.innerHTML = biom_fild;
 }
 
-// стартовая генерация поля в документе и пустого массива биома
-game.m.biom_push(-1);
 
 // export {game};

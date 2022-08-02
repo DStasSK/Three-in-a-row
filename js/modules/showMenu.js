@@ -40,7 +40,5 @@ game.m.showOption = function(){
 		}, 900);
 	} else clearInterval(showMenuOption);
 }
-// option.addEventListener('click', game.m.showOption); // показать меню опций
-// info.addEventListener('click', game.m.showInfo);     // показать меню информации
 
 // export {game};

@@ -45,7 +45,11 @@ game.m.move_ball = function(){
 					// генерация цвета мяча
 					game.fild.biom[game.ball_x][game.ball_y] = Math.round(Math.random()*5) + 1;
 				}
-				else game.m.game_over();
+				else {
+					game.status.start_game = false;
+					game.status.game = false;
+					game.m.game_over();
+				}
 
 				// отображение щара в игре
 				game.m.biom_push();

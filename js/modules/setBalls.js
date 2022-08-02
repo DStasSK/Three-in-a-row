@@ -19,7 +19,5 @@ game.m.setBalls = function(){
 	}, 900);
 }
 
-// const filling = document.querySelector('.filling');
-// filling.addEventListener('change', game.m.setBalls);
 
 // export {game};

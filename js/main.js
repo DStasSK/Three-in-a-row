@@ -1,8 +1,8 @@
-// import {keys} from './modules/keys.js';
-// import {biom_push} from './modules/player_arrow.js';
-// import {move_ball} from './modules/move_ball.js';
-// import {boom, clear_row} from './modules/find_and_del_row.js';
-// import {setBalls} from './modules/setBalls.js';
+// import {game} from './modules/keys.js';
+// import {game} from './modules/player_arrow.js';
+// import {game} from './modules/move_ball.js';
+// import {game} from './modules/find_and_del_row.js';
+// import {game} from './modules/setBalls.js';
 
 // Эмуляция импорта xD
 document.write('<script src="./js/modules/keys.js"></script>');
@@ -35,32 +35,32 @@ const result = document.querySelector('.result');
 // option.addEventListener('click', showOption);      // показать меню опций
 // info.addEventListener('click', showInfo);          // показать меню информации
 
-let biom = [];     // основное поле данных
-let biom_boom=[];  // биом для очистки по нему основного биома
-
-let find_row = false;           // статус обнаружения 3-х в ряд
-let start_game_status = false;  // стату запуска новой игры
-let game_status = false;        // статус игры - для паузы
-let ball_status = false;        // нужно ли выпускать новый шар
-let clear_status = 0;           // статус очистки от 3-х в ряд
-let add_status = false;         // статус для добалвения шара вниз биома
-
-let ball_x;         // текущая коорданата падающего шара по Х
-let ball_y;         // текущая координата падающего шара по Y
+// let biom = [];     // основное поле данных
+// let biom_boom=[];  // биом для очистки по нему основного биома
+//
+// let find_row = false;           // статус обнаружения 3-х в ряд
+// let start_game_status = false;  // стату запуска новой игры
+// let game_status = false;        // статус игры - для паузы
+// let ball_status = false;        // нужно ли выпускать новый шар
+// let clear_status = 0;           // статус очистки от 3-х в ряд
+// let add_status = false;         // статус для добалвения шара вниз биома
+//
+// let ball_x;         // текущая коорданата падающего шара по Х
+// let ball_y;         // текущая координата падающего шара по Y
 
 let interval;       // основной интервал движения шаров
 let interval_del;   // интервал удаления шаров - для анимации
 let showMenuInfo;   // интервал закрытия меню информации
 let showMenuOption; // интервал закрытия меню опций
 
-let score = 0;            // счетчик очков
-let score_str = 0;        // для отображения набранных очков
-let timeByStep = 420;     // время прохождения шаром одной клетки ms
-let timeClearStep = 450;  // время на удаления элементов ms
-let x = 11; // ширина поля
-let y = 15; // высота поля
-let h = 8;  // количество заполненных линий на старте
-function clear_row(){}
+// let score = 0;            // счетчик очков
+// let score_str = 0;        // для отображения набранных очков
+// let timeByStep = 420;     // время прохождения шаром одной клетки ms
+// let timeClearStep = 450;  // время на удаления элементов ms
+// let x = 11; // ширина поля
+// let y = 15; // высота поля
+// let h = 8;  // количество заполненных линий на старте
+// function clear_row(){}
 
 const game = {
 	interval:{
@@ -84,11 +84,8 @@ const game = {
 		y:15,          // высота поля
 		h:8            // количество заполненных линий на старте
 	},
-	score:0,          // счетчик набранных очков
-	score_str:0,      // для отображения набранных очков
-	ball_x:0,         // текущая коорданата падающего шара по Х
-	ball_y:0,         // текущая коорданата падающего шара по Y
-	m:{
+
+	m:{               // методы
 		biom_push:0,
 		keys:0,
 		game_start:0,
@@ -105,7 +102,12 @@ const game = {
 		check_score:0,
 		addBall:0,
 		setBalls:0
-	}
+	},
+
+	score:0,          // счетчик набранных очков
+	score_str:0,      // для отображения набранных очков
+	ball_x:0,         // текущая коорданата падающего шара по Х
+	ball_y:0,         // текущая коорданата падающего шара по Y
 }
 
 // стартовая генерация поля в документе и пустого массива биома

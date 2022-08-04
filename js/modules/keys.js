@@ -12,9 +12,10 @@ document.write('<script src="./js/modules/showMenu.js"></script>');
 game.m.keys = function(event){
 	// начало новой игры
 	if(event.key=='n'||event.key=='N'||event.key=='т'||event.key=='Т'||event.keyCode=='78') {
-		if(game.status.game){
+		if(game.status.game){// задать вопрос о начале новой игры если игра запущена
 			game.status.ask = 1;
-			game.m.ask();  // задать вопрос о начале новой игры
+			game.status.dabl_N_key++;
+			game.m.ask();
 		} else {
 			game.status.start_game = false;
 			game.status.game = false;
@@ -25,13 +26,16 @@ game.m.keys = function(event){
 
 	// пауза
 	if(event.key=='p'||event.key=='P'||event.key=='з'||event.key=='З'||event.key==' '||event.keyCode=='32'||event.keyCode=='80'){
+		game.status.dabl_N_key = 0;
+		game.status.dabl_G_key = 0;
 		game.m.pause();
 	}
 
 	// конец игры
 	if(event.key=='g'||event.key=='G'||event.key=='п'||event.key=='П'||event.keyCode=='71'){
-		if(game.status.game) {
+		if(game.status.game) {  // задать вопрос о начале новой игры если игра запущена
 			game.status.ask = 0;
+			game.status.dabl_G_key++;
 			game.m.ask();
 		}
 	}

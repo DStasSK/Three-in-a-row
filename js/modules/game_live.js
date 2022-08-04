@@ -5,14 +5,20 @@ game.m.game_start = function(){
 	game.status.game = false;
 	game.status.start_game = true;
 	game.status.ask = -1;
+	game.status.dabl_N_key = 0;
+	game.status.dabl_G_key = 0;
 	game.score_str = 0;
+
+	btn_start.style.display = 'block';
+	ask.style.display = 'none';
+
 	message.innerHTML = '';
 	score_bg.innerHTML = '000000';
 	score_info.innerHTML = '';
 
 	if (!game_menu.classList.contains('ani')) game_menu.classList.toggle('ani');
 	if(!game.status.game) {
-		// страртовая генерация и заполнение биома
+		// страртовая генерация лниний и заполнение биома
 		game.m.biom_push(1);
 
 		game.status.game = true;
@@ -38,8 +44,11 @@ game.m.pause = function(){
 
 	if(game.status.game){
 		if(game.status.start_game) {
-			game.status.start_game = false;
+			btn_start.style.display = 'block';
+			ask.style.display = 'none';
 			btn_start.innerHTML = 'пауза';
+
+			game.status.start_game = false;
 			if (game_menu.classList.contains('ani')) {
 				game_menu.classList.toggle('ani');
 			}
@@ -69,32 +78,36 @@ game.m.game_over = function(){
 	btn_start.removeEventListener('click', game.m.pause);
 	btn_start.addEventListener('click', game.m.game_start);
 
+	btn_start.style.display = 'block';
+	ask.style.display = 'none';
+
 	message.innerHTML = `<span>Игра окончена</span><br>ваш результат:<div class="result">${game.score}</div>`;
 	btn_start.innerHTML = 'Играть снова';
 }
 
 // вопрос при прерывании текущей игры
 game.m.ask = function(){
-	const ask = document.querySelector('.ask');
-	const btn_ask = document.querySelectorAll('.btn_ask');
+	if(game.status.start_game) game.m.pause();
 
 	btn_start.style.display = 'none';
 	ask.style.display = 'block';
-	game.m.pause();
 
 	ask.addEventListener('click', function(e){
-		// e.stopImmediatePropagation();  // отмена всплытия клика
-
 		if (e.target.getAttribute('value') == 'true') {
 			btn_start.style.display = 'block';
 			ask.style.display = 'none';
 			if (game.status.ask === 0) game.m.game_over();
 			if (game.status.ask === 1) game.m.game_start();
 		} else {
-			game.status.start_game = false;
+			game.status.start_game = false;  // для корректной работы паузы
 			game.m.pause();
+			game.status.dabl_N_key = 0;
+			game.status.dabl_G_key = 0;
 		}
-	}, true);
+	});
+
+	if(game.status.dabl_N_key > 1) game.m.game_start();
+	if(game.status.dabl_G_key > 1) game.m.game_over();
 }
 
 

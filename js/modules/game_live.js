@@ -9,14 +9,16 @@ game.m.game_start = function(){
 	game.status.dabl_G_key = 0;
 	game.score_str = 0;
 
-	btn_start.style.display = 'block';
-	ask.style.display = 'none';
+	game.selectors.btn_start.style.display = 'block';
+	game.selectors.ask.style.display = 'none';
 
-	message.innerHTML = '';
-	score_bg.innerHTML = '000000';
-	score_info.innerHTML = '';
+	game.selectors.message.innerHTML = '';
+	game.selectors.score_bg.innerHTML = '000000';
+	game.selectors.score_info.innerHTML = '';
 
-	if (!game_menu.classList.contains('ani')) game_menu.classList.toggle('ani');
+	if (!game.selectors.game_menu.classList.contains('ani')) {
+		game.selectors.game_menu.classList.toggle('ani');
+	}
 	if(!game.status.game) {
 		// страртовая генерация лниний и заполнение биома
 		game.m.biom_push(1);
@@ -39,25 +41,25 @@ game.m.game_start = function(){
 
 // pause
 game.m.pause = function(){
-	btn_start.removeEventListener('click', game.m.game_start);
-	btn_start.addEventListener('click', game.m.pause);
+	game.selectors.btn_start.removeEventListener('click', game.m.game_start);
+	game.selectors.btn_start.addEventListener('click', game.m.pause);
 
 	if(game.status.game){
 		if(game.status.start_game) {
-			btn_start.style.display = 'block';
-			ask.style.display = 'none';
-			btn_start.innerHTML = 'пауза';
+			game.selectors.btn_start.style.display = 'block';
+			game.selectors.ask.style.display = 'none';
+			game.selectors.btn_start.innerHTML = 'пауза';
 
 			game.status.start_game = false;
-			if (game_menu.classList.contains('ani')) {
-				game_menu.classList.toggle('ani');
+			if (game.selectors.game_menu.classList.contains('ani')) {
+				game.selectors.game_menu.classList.toggle('ani');
 			}
 			clearInterval(interval);
 		}
 		else {
 			game.status.start_game = true;
-			if (!game_menu.classList.contains('ani')) {
-				game_menu.classList.toggle('ani');
+			if (!game.selectors.game_menu.classList.contains('ani')) {
+				game.selectors.game_menu.classList.toggle('ani');
 			}
 			clearInterval(interval);
 			interval = setInterval(game.m.move_ball, game.interval.timeByStep);
@@ -71,31 +73,31 @@ game.m.game_over = function(){
 	game.status.start_game = false;
 	game.status.game = false;
 
-	if (game_menu.classList.contains('ani')) {
-		game_menu.classList.toggle('ani');
+	if (game.selectors.game_menu.classList.contains('ani')) {
+		game.selectors.game_menu.classList.toggle('ani');
 	}
 
-	btn_start.removeEventListener('click', game.m.pause);
-	btn_start.addEventListener('click', game.m.game_start);
+	game.selectors.btn_start.removeEventListener('click', game.m.pause);
+	game.selectors.btn_start.addEventListener('click', game.m.game_start);
 
-	btn_start.style.display = 'block';
-	ask.style.display = 'none';
+	game.selectors.btn_start.style.display = 'block';
+	game.selectors.ask.style.display = 'none';
 
-	message.innerHTML = `<span>Игра окончена</span><br>ваш результат:<div class="result">${game.score}</div>`;
-	btn_start.innerHTML = 'Играть снова';
+	game.selectors.message.innerHTML = `<span>Игра окончена</span><br>ваш результат:<div class="result">${game.score}</div>`;
+	game.selectors.btn_start.innerHTML = 'Играть снова';
 }
 
 // вопрос при прерывании текущей игры
 game.m.ask = function(){
 	if(game.status.start_game) game.m.pause();
 
-	btn_start.style.display = 'none';
-	ask.style.display = 'block';
+	game.selectors.btn_start.style.display = 'none';
+	game.selectors.ask.style.display = 'block';
 
-	ask.addEventListener('click', function(e){
+	game.selectors.ask.addEventListener('click', function(e){
 		if (e.target.getAttribute('value') == 'true') {
-			btn_start.style.display = 'block';
-			ask.style.display = 'none';
+			game.selectors.btn_start.style.display = 'block';
+			game.selectors.ask.style.display = 'none';
 			if (game.status.ask === 0) game.m.game_over();
 			if (game.status.ask === 1) game.m.game_start();
 		} else {

@@ -3,7 +3,7 @@
 
 game.m.setBalls = function(){
 	clearInterval(showMenuOption);
-	game.fild.h = filling.value;
+	game.fild.h = game.selectors.filling.value;
 
 	let date2 = Date.now();
 	showMenuOption = setInterval( ()=> {

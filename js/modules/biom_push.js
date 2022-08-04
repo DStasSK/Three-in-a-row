@@ -47,8 +47,8 @@ game.m.biom_push = function(zz){
 		else {biom_fild += '</div>';}
 	}
 
-	if(zz==-1) fild_box.innerHTML = fild;
-	else biom_box.innerHTML = biom_fild;
+	if(zz==-1) game.selectors.fild_box.innerHTML = fild;
+	else game.selectors.biom_box.innerHTML = biom_fild;
 }
 
 

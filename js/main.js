@@ -13,25 +13,25 @@ document.write('<script src="./js/modules/find_and_del_row.js"></script>');
 document.write('<script src="./js/modules/setBalls.js"></script>');
 document.write('<script src="./js/modules/start_game.js"></script>');
 
-const game_menu = document.querySelector('.game_menu');
-const btn_start = document.querySelector('.btn_start');
-const option_btn_start = document.querySelector('.option_btn_start');
+// const game_menu = document.querySelector('.game_menu');
+// const btn_start = document.querySelector('.btn_start');
+// const option_btn_start = document.querySelector('.option_btn_start');
 
-const fild_box = document.querySelector('.fild_box');
-const biom_box = document.querySelector('.biom_box');
+// const fild_box = document.querySelector('.fild_box');
+// const biom_box = document.querySelector('.biom_box');
 
 // const option = document.querySelector('.option');
 // const option_box = document.querySelector('.option_box');
 // const info = document.querySelector('.info');
 // const info_box = document.querySelector('.info_box');
 
-const score_bg = document.querySelector('.score_bg');
-const score_info = document.querySelector('.score_info');
-const filling = document.querySelector('.filling');
+// const score_bg = document.querySelector('.score_bg');
+// const score_info = document.querySelector('.score_info');
+// const filling = document.querySelector('.filling');
 
-const message = document.querySelector('.message');
-const ask = document.querySelector('.ask');
-const btn_ask = document.querySelectorAll('.btn_ask');
+// const message = document.querySelector('.message');
+// const ask = document.querySelector('.ask');
+// const btn_ask = document.querySelectorAll('.btn_ask');
 
 // прослушивание клавиш
 // document.addEventListener('keydown', game.m.keys);
@@ -71,7 +71,10 @@ const game = {
 		biom_boom:[],  // биом для удаления 3-х в ряд из основного биома
 		x:11,          // ширина поля
 		y:15,          // высота поля
-		h:8            // количество заполненных линий на старте
+		h:8,           // количество заполненных линий на старте
+		score_1:90,    // очки за шар при совпадении 3-х в ряд
+		score_2:75,    // очки за шар при совпадении 3-х в ряд
+		score_3:60,    // очки за шар при совпадении 3-х в ряд
 	},
 
 	m:{               // методы
@@ -107,7 +110,7 @@ const game = {
 		info: document.querySelector('.info'),     // иконка меню информации (кнопка открытия меню)
 		option_box: document.querySelector('.option_box'), // меню опций
 		info_box: document.querySelector('.info_box'),     // меню информации
-// game.selectors.
+
 		score_bg: document.querySelector('.score_bg'),
 		score_info: document.querySelector('.score_info'),
 		filling: document.querySelector('.filling'),

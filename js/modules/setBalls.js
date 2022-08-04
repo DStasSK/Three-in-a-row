@@ -7,13 +7,13 @@ game.m.setBalls = function(){
 
 	let date2 = Date.now();
 	showMenuOption = setInterval( ()=> {
-		if((Date.now() - date2) > 7000) {
+		if((Date.now() - date2) > game.interval.showMenuS) {
 			clearInterval(showMenuOption);
-			if (!option_box.classList.contains('ani')) {
-				option_box.classList.toggle('ani');
+			if (!game.selectors.option_box.classList.contains('ani')) {
+				game.selectors.option_box.classList.toggle('ani');
 			}
-			if (option.classList.contains('ani')) {
-				option.classList.toggle('ani');
+			if (game.selectors.option.classList.contains('ani')) {
+				game.selectors.option.classList.toggle('ani');
 			}
 		}
 	}, 900);

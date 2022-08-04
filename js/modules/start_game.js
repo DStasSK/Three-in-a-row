@@ -28,7 +28,7 @@ game.m.start_game = function(){
 	document.addEventListener('keydown', game.m.keys);   // прослушивание клавиш
 	btn_start.addEventListener('click', game.m.game_start);        // начало игры
 	option_btn_start.addEventListener('click', game.m.game_start); // начало игры
-	option.addEventListener('click', game.m.showOption); // показать меню опций
+	game.selectors.option.addEventListener('click', game.m.showOption); // показать меню опций
 	// info.addEventListener('click', game.m.showInfo);     // показать меню информации
 	game.selectors.info.addEventListener('click', game.m.showInfo);     // показать меню информации
 

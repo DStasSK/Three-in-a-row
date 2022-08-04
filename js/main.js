@@ -20,10 +20,10 @@ const option_btn_start = document.querySelector('.option_btn_start');
 const fild_box = document.querySelector('.fild_box');
 const biom_box = document.querySelector('.biom_box');
 
-const option = document.querySelector('.option');
-const option_box = document.querySelector('.option_box');
-const info = document.querySelector('.info');
-const info_box = document.querySelector('.info_box');
+// const option = document.querySelector('.option');
+// const option_box = document.querySelector('.option_box');
+// const info = document.querySelector('.info');
+// const info_box = document.querySelector('.info_box');
 
 const score_bg = document.querySelector('.score_bg');
 const score_info = document.querySelector('.score_info');
@@ -107,7 +107,7 @@ const game = {
 		info: document.querySelector('.info'),     // иконка меню информации (кнопка открытия меню)
 		option_box: document.querySelector('.option_box'), // меню опций
 		info_box: document.querySelector('.info_box'),     // меню информации
-
+// game.selectors.
 		score_bg: document.querySelector('.score_bg'),
 		score_info: document.querySelector('.score_info'),
 		filling: document.querySelector('.filling'),

@@ -13,43 +13,13 @@ document.write('<script src="./js/modules/find_and_del_row.js"></script>');
 document.write('<script src="./js/modules/setBalls.js"></script>');
 document.write('<script src="./js/modules/start_game.js"></script>');
 
-// const game_menu = document.querySelector('.game_menu');
-// const btn_start = document.querySelector('.btn_start');
-// const option_btn_start = document.querySelector('.option_btn_start');
-
-// const fild_box = document.querySelector('.fild_box');
-// const biom_box = document.querySelector('.biom_box');
-
-// const option = document.querySelector('.option');
-// const option_box = document.querySelector('.option_box');
-// const info = document.querySelector('.info');
-// const info_box = document.querySelector('.info_box');
-
-// const score_bg = document.querySelector('.score_bg');
-// const score_info = document.querySelector('.score_info');
-// const filling = document.querySelector('.filling');
-
-// const message = document.querySelector('.message');
-// const ask = document.querySelector('.ask');
-// const btn_ask = document.querySelectorAll('.btn_ask');
-
-// прослушивание клавиш
-// document.addEventListener('keydown', game.m.keys);
-// filling.addEventListener('change', game.m.setBalls);
-
-// btn_start.addEventListener('click', game.m.game_start);        // начало игры
-// option_btn_start.addEventListener('click', game.m.game_start); // начало игры
-// option.addEventListener('click', game.m.showOption);      // показать меню опций
-// info.addEventListener('click', game.m.showInfo);          // показать меню информации
-
-
-let interval;       // основной интервал движения шаров
-let interval_del;   // интервал удаления шаров - для анимации
-let showMenuInfo;   // интервал закрытия меню информации
-let showMenuOption; // интервал закрытия меню опций
-
 const game = {
 	interval:{
+		interval:0,         // основной интервал движения шаров
+		showMenuInfo:0,     // интервал закрытия меню
+		showMenuOption:0,   // интервал закрытия меню опций
+		interval_del:0,     // интервал удаления шаров - для анимации
+
 		timeByStep:420,     // время прохождения шаром одной клетки ms
 		timeClearStep:450,  // время на удаления элементов ms
 		showMenu:5000,      // время на отображение меню информации в showInfo(),showOption()
@@ -103,8 +73,8 @@ const game = {
 		btn_start: document.querySelector('.btn_start'),
 		option_btn_start: document.querySelector('.option_btn_start'),
 
-		fild_box: document.querySelector('.fild_box'),
-		biom_box: document.querySelector('.biom_box'),
+		fild_box: document.querySelector('.fild_box'),  // фоновое поле
+		biom_box: document.querySelector('.biom_box'),  // основное поле
 
 		option: document.querySelector('.option'), // иконка меню информации (кнопка открытия меню)
 		info: document.querySelector('.info'),     // иконка меню информации (кнопка открытия меню)
@@ -127,3 +97,5 @@ const game = {
 }
 
 // game.start_game();
+
+// export {game};

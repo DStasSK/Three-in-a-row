@@ -1,11 +1,8 @@
 // import {game} from '../main.js';
-// начало игры:
-// - установка констант???
-// - установка событий
-
 
 game.m.start_game = function(){
 	document.addEventListener('keydown', game.m.keys);   // прослушивание клавиш
+
 	game.selectors.btn_start.addEventListener('click', game.m.game_start); // начало игры
 	game.selectors.info.addEventListener('click', game.m.showInfo);        // показать меню информации
 	game.selectors.filling.addEventListener('change', game.m.setBalls);    // выбор кол-ва заполненных строк на старте
@@ -19,7 +16,7 @@ game.m.start_game = function(){
 		} else {
 			game.status.start_game = false;
 			game.status.game = false;
-			clearInterval(interval);
+			clearInterval(game.interval.interval);
 			game.m.game_start();
 		}
 	});    // начало игры
@@ -28,7 +25,7 @@ game.m.start_game = function(){
 	game.m.biom_push(-1);
 }
 
-
+// подготовка к запуску игры (инициализация)
 game.m.start_game();
 
 // export {game};

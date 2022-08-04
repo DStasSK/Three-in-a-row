@@ -2,13 +2,13 @@
 // выбор количества заполненных начальных строк
 
 game.m.setBalls = function(){
-	clearInterval(showMenuOption);
+	clearInterval(game.interval.showMenuOption);
 	game.fild.h = game.selectors.filling.value;
 
 	let date2 = Date.now();
-	showMenuOption = setInterval( ()=> {
+	game.interval.showMenuOption = setInterval( ()=> {
 		if((Date.now() - date2) > game.interval.showMenuS) {
-			clearInterval(showMenuOption);
+			clearInterval(game.interval.showMenuOption);
 			if (!game.selectors.option_box.classList.contains('ani')) {
 				game.selectors.option_box.classList.toggle('ani');
 			}

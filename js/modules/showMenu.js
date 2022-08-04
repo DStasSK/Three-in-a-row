@@ -3,14 +3,14 @@
 // открытие и закрытие меню опций и информации
 
 game.m.showInfo = function(){
-	clearInterval(showMenuInfo);
+	clearInterval(game.interval.showMenuInfo);
 	game.selectors.info_box.classList.toggle('ani');
 	game.selectors.info.classList.toggle('ani');
 	if (!game.selectors.info_box.classList.contains('ani')){
 		let date1 = Date.now();
-		showMenuInfo = setInterval( () => {
+		game.interval.showMenuInfo = setInterval( () => {
 			if((Date.now() - date1) > game.interval.showMenu) {
-				clearInterval(showMenuInfo);
+				clearInterval(game.interval.showMenuInfo);
 				if (!game.selectors.info_box.classList.contains('ani')) {
 					game.selectors.info_box.classList.toggle('ani');
 				}
@@ -19,17 +19,17 @@ game.m.showInfo = function(){
 				}
 			}
 		}, 900);
-	} else clearInterval(showMenuInfo);
+	} else clearInterval(game.interval.showMenuInfo);
 }
 game.m.showOption = function(){
-	clearInterval(showMenuOption);
+	clearInterval(game.interval.showMenuOption);
 	game.selectors.option_box.classList.toggle('ani');
 	game.selectors.option.classList.toggle('ani');
 	if (!game.selectors.option_box.classList.contains('ani')) {
 		let date2 = Date.now();
-		showMenuOption = setInterval( ()=> {
+		game.interval.showMenuOption = setInterval( ()=> {
 			if((Date.now() - date2) > game.interval.showMenu) {
-				clearInterval(showMenuOption);
+				clearInterval(game.interval.showMenuOption);
 				if (!game.selectors.option_box.classList.contains('ani')) {
 					game.selectors.option_box.classList.toggle('ani');
 				}
@@ -38,7 +38,7 @@ game.m.showOption = function(){
 				}
 			}
 		}, 900);
-	} else clearInterval(showMenuOption);
+	} else clearInterval(game.interval.showMenuOption);
 }
 
 // export {game};

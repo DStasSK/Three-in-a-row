@@ -29,14 +29,14 @@ game.m.game_start = function(){
 		// поиск 3-х в ряд на стартовой генерации и их удаление
 		game.m.boom();
 		if(game.status.find_row){
-			clearInterval(interval_del);
+			clearInterval(game.interval.interval_del);
 			game.status.clear = 0;
-			interval_del = setInterval(game.m.clear_row, game.interval.timeClearStep);
+			game.interval.interval_del = setInterval(game.m.clear_row, game.interval.timeClearStep);
 		}
 	}
 
-	clearInterval(interval);
-	interval = setInterval(game.m.move_ball, game.interval.timeByStep);
+	clearInterval(game.interval.interval);
+	game.interval.interval = setInterval(game.m.move_ball, game.interval.timeByStep);
 }
 
 // pause
@@ -54,22 +54,22 @@ game.m.pause = function(){
 			if (game.selectors.game_menu.classList.contains('ani')) {
 				game.selectors.game_menu.classList.toggle('ani');
 			}
-			clearInterval(interval);
+			clearInterval(game.interval.interval);
 		}
 		else {
 			game.status.start_game = true;
 			if (!game.selectors.game_menu.classList.contains('ani')) {
 				game.selectors.game_menu.classList.toggle('ani');
 			}
-			clearInterval(interval);
-			interval = setInterval(game.m.move_ball, game.interval.timeByStep);
+			clearInterval(game.interval.interval);
+			game.interval.interval = setInterval(game.m.move_ball, game.interval.timeByStep);
 		}
 	}
 }
 
 // game over
 game.m.game_over = function(){
-	clearInterval(interval);
+	clearInterval(game.interval.interval);
 	game.status.start_game = false;
 	game.status.game = false;
 

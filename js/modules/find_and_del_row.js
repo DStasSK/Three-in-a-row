@@ -58,7 +58,7 @@ game.m.boom = function(){
 // и подсчет очков
 game.m.clear_row = function(){
 	// остановка падения шаров
-	clearInterval(interval);
+	clearInterval(game.interval.interval);
 
 	// анимация удаления - через добавление класса del
 	game.m.biom_push(2);
@@ -87,8 +87,8 @@ game.m.clear_row = function(){
 	if(game.status.find_row == false){
 		game.status.clear=2;
 		if (game.status.clear == 2) {
-			clearInterval(interval_del);
-			interval = setInterval(game.m.move_ball, game.interval.timeByStep);
+			clearInterval(game.interval.interval_del);
+			game.interval.interval = setInterval(game.m.move_ball, game.interval.timeByStep);
 		}
 	}
 }

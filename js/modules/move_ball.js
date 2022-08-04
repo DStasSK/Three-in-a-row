@@ -28,9 +28,9 @@ game.m.move_ball = function(){
 			game.m.addBall();
 			game.m.boom();
 			if(game.status.find_row){
-				clearInterval(interval_del);
+				clearInterval(game.interval.interval_del);
 				game.status.clear = 0;
-				interval_del = setInterval(game.m.clear_row, game.interval.timeClearStep);
+				game.interval.interval_del = setInterval(game.m.clear_row, game.interval.timeClearStep);
 			} else {
 				game.status.add = true;
 				game.status.ball = true;

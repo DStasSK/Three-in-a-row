@@ -1,5 +1,5 @@
 // движение мяча игроком
-// import {game} from './keys.js';
+// import {game} from '../main.js';
 
 game.m.to_left = function(){
 	if((game.ball_x-1) >= 0

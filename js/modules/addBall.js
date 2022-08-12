@@ -1,6 +1,6 @@
-// import {game} from './move_ball.js';
-
 // добавляем шар в нижнюю доступную точку биома
+// import {game} from '../main.js';
+
 game.m.addBall = function(){
 	if(game.status.add){
 		game.status.add = false;

@@ -1,6 +1,5 @@
+// подсчет очков в find_and_del_row.js и отображение очков в документе
 // import {game} from '../main.js';
-
-// подсчет очков в функции clear_row
 
 game.m.check_score = function(i,j){
 	if (game.fild.biom[i][j] == 1) game.score += game.fild.score_1;
@@ -11,6 +10,7 @@ game.m.check_score = function(i,j){
 	if (game.fild.biom[i][j] == 6) game.score += game.fild.score_1;
 	// console.log('score = ',score);
 
+	// отображение очков в документе
 	if (game.score_str < 7){
 		if (game.score < 100) {
 			game.score_str = 2;

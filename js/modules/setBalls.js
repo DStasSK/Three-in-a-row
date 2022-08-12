@@ -1,5 +1,5 @@
-// import {game} from '../main.js';
 // выбор количества заполненных начальных строк
+// import {game} from '../main.js';
 
 game.m.setBalls = function(){
 	clearInterval(game.interval.showMenuOption);

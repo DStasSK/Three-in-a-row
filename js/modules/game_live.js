@@ -1,4 +1,5 @@
-// import {game} from './keys.js';
+// import {game} from '../main.js';
+
 
 // начало игры
 game.m.game_start = function(){

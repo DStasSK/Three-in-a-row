@@ -1,6 +1,5 @@
-// import {game} from './keys.js';
-
 // открытие и закрытие меню опций и информации
+// import {game} from '../main.js';
 
 game.m.showInfo = function(){
 	clearInterval(game.interval.showMenuInfo);
@@ -21,6 +20,8 @@ game.m.showInfo = function(){
 		}, 900);
 	} else clearInterval(game.interval.showMenuInfo);
 }
+
+
 game.m.showOption = function(){
 	clearInterval(game.interval.showMenuOption);
 	game.selectors.option_box.classList.toggle('ani');

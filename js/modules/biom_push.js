@@ -1,4 +1,4 @@
-// построение для отображения элементов в HTML документе согласно биому
+// построение биома для отображения элементов в HTML документе по биому
 
 // zz = -1  для заполения HTML страницы после загрузки
 //          и генерация пустого массива биома
@@ -26,15 +26,15 @@ game.m.biom_push = function(zz){
 		}
 
 		for (let j=0; j < game.fild.y; j++){
-			if((zz==1) && j< game.fild.h) {game.fild.biom[i][j] = 1 + Math.round(Math.random()*5)}
+			if((zz==1) && j< game.fild.h) {game.fild.biom[i][j] = 1 + Math.round(Math.random()*5)}  // генерация цвета
 			if((zz==1) && j>=game.fild.h) {game.fild.biom[i][j] = 0}
 
 			if(zz==2){
-				if(game.fild.biom_boom[i][j]==1) {del = 'del'}
+				if(game.fild.biom_boom[i][j]==1) {del = 'del'}  // .del - класс для анимации удаления
 				else {del = ''}
 			}
 			if(zz==-1) {
-				fild +=`<i></i>`;
+				fild +='<i></i>';
 				game.fild.biom[i][j] = 0;
 				game.fild.biom_boom[i][j] = 0;
 			} else {

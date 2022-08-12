@@ -1,6 +1,6 @@
 // логика клавиш
 
-// import {game} from '../main.js';
+// import {game} from './start_game.js';
 // import {game} from './game_live.js';
 // import {game} from './player_arrow.js';
 // import {game} from './showMenu.js';
@@ -10,7 +10,8 @@ document.write('<script src="./js/modules/showMenu.js"></script>');
 
 
 game.m.keys = function(event){
-	// console.log(event.key, event.keyCode);
+	// console.log('event.key = ', event.key, ' event.keyCode = ', event.keyCode);
+
 	// начало новой игры
 	if(event.key=='n'||event.key=='N'||event.key=='т'||event.key=='Т'||event.keyCode=='78') {
 		if(game.status.game){// задать вопрос о начале новой игры если игра запущена

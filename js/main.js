@@ -16,7 +16,7 @@ document.write('<script src="./js/modules/start_game.js"></script>');
 const game = {
 	interval:{
 		interval:0,         // основной интервал движения шаров
-		showMenuInfo:0,     // интервал закрытия меню
+		showMenuInfo:0,     // интервал закрытия меню информации
 		showMenuOption:0,   // интервал закрытия меню опций
 		interval_del:0,     // интервал удаления шаров - для анимации
 

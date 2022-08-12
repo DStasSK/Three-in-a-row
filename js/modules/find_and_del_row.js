@@ -1,6 +1,7 @@
-// import {game} from '../main.js';
+// поиск 3-х в ряд, удаление;
 // import {game} from './check_score.js';
 document.write('<script src="./js/modules/check_score.js"></script>');
+
 
 // поиск совпадений 3 в ряд и более для удаления
 game.m.boom = function(){
@@ -54,8 +55,9 @@ game.m.boom = function(){
 	}
 }
 
+
 // удаление элементов согласно biom_boom
-// и подсчет очков
+// и подсчет очков в check_score.js
 game.m.clear_row = function(){
 	// остановка падения шаров
 	clearInterval(game.interval.interval);
@@ -84,13 +86,16 @@ game.m.clear_row = function(){
 	game.m.boom();
 
 	// если элементов для удаления нет - выход из цикла
+	// двойной проход нужен для отображения анимации
+	// иначе шары просто удалятся без анимации
 	if(game.status.find_row == false){
-		game.status.clear=2;
+		game.status.clear = 2;
 		if (game.status.clear == 2) {
 			clearInterval(game.interval.interval_del);
 			game.interval.interval = setInterval(game.m.move_ball, game.interval.timeByStep);
 		}
 	}
 }
+
 
 // export { game };

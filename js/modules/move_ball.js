@@ -1,5 +1,4 @@
 // падение мяча
-// import {game} from '../main.js';
 // import {game} from './addBall.js';
 document.write('<script src="./js/modules/addBall.js"></script>');
 

@@ -1,5 +1,4 @@
 // движение мяча игроком
-// import {game} from '../main.js';
 
 game.m.to_left = function(){
 	if((game.ball_x-1) >= 0
@@ -31,5 +30,3 @@ game.m.to_down = function(){
 	}
 	game.m.biom_push();
 }
-
-// export {game};

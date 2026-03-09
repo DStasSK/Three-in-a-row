@@ -1,7 +1,4 @@
 // падение мяча
-// import {game} from './addBall.js';
-document.write('<script src="./js/modules/addBall.js"></script>');
-
 game.m.move_ball = function(){
 	if (game.status.clear == 2 && game.status.game && game.status.start_game){
 		if (game.status.ball) {
@@ -31,7 +28,7 @@ game.m.move_ball = function(){
 				game.status.clear = 0;
 				game.interval.interval_del = setInterval(game.m.clear_row, game.interval.timeClearStep);
 			} else {
-				game.status.add = true;
+				// game.status.add = true;
 				game.status.ball = true;
 				game.ball_y = game.fild.y;
 
@@ -56,6 +53,3 @@ game.m.move_ball = function(){
 		}
 	}
 }
-
-
-// export {game};

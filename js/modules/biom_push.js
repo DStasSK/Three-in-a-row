@@ -1,55 +1,55 @@
 // построение биома для отображения элементов в HTML документе по биому
 
-// zz = -1  для заполения HTML страницы после загрузки
-//          и генерация пустого массива биома
+// check = -1		для заполения HTML страницы после загрузки
+//							и генерация пустого массива биома
 
-// zz = 1   для заполнения биома при начале игры
-//          стартовая генерация поля
+// check = 1		для заполнения биома при начале игры
+//							стартовая генерация поля
 
-// zz = 2   для обновления биома после удаления 3-х в ряд
-//          добавляет класс для анимации удаления шаров
+// check = 2		для обновления биома + после удаления 3-х в ряд
+//							добавляет класс del для анимации удаления шаров
 
-// import {game} from '../main.js';
-
-game.m.biom_push = function(zz){
-	let fild = '';
-	let biom_fild = '';
-	let del = ''
-	for (let i = 0; i < game.fild.x; i++){
-		if(zz==-1) {
-			fild += '<div class="col">';
-			game.fild.biom[i] = [];
-			game.fild.biom_boom[i] = [];
+game.m.biom_push = function(check=0) {
+	if (check == -1) {
+		let fild = '';
+		let div = '<div class="col">' + Array.from({length:game.fild.y}, ()=>'<i></i>').join('') + '</div>';
+		for (let i=0; i<game.fild.x; i++) {
+			game.fild.biom[i] = Array.from( {length:game.fild.y}, () => 0 );
+			game.fild.biom_boom[i] = [...game.fild.biom[i]];
+			fild += div;
 		}
-		else {
-			biom_fild += '<div class="col">';
-		}
-
-		for (let j=0; j < game.fild.y; j++){
-			if((zz==1) && j< game.fild.h) {game.fild.biom[i][j] = 1 + Math.round(Math.random()*5)}  // генерация цвета
-			if((zz==1) && j>=game.fild.h) {game.fild.biom[i][j] = 0}
-
-			if(zz==2){
-				if(game.fild.biom_boom[i][j]==1) {del = 'del'}  // .del - класс для анимации удаления
-				else {del = ''}
-			}
-			if(zz==-1) {
-				fild +='<i></i>';
-				game.fild.biom[i][j] = 0;
-				game.fild.biom_boom[i][j] = 0;
-			} else {
-				if(!game.fild.biom[i][j]) game.fild.biom[i][j]=0;
-				biom_fild +=`<i class="el${game.fild.biom[i][j]} ${del}"></i>`;
-			}
-		}
-
-		if(zz==-1) {fild += '</div>';}
-		else {biom_fild += '</div>';}
+		game.selectors.fild_box.innerHTML = fild;
+		game.selectors.biom_box.innerHTML = fild;
+		div = fild = null;
+		return
 	}
 
-	if(zz==-1) game.selectors.fild_box.innerHTML = fild;
-	else game.selectors.biom_box.innerHTML = biom_fild;
+
+	if (check==1) {
+		let count = 0;
+		for (let i=0; i<game.fild.x; i++) {
+			for (let j=0; j<game.fild.y; j++) {
+				if (check==1 && game.fild.biom[i][j]==0) { // генерация цвета
+					j<game.fild.h ? game.fild.biom[i][j] = 1 + Math.round(Math.random()*5) :'';
+					count++;
+				}
+			}
+		}
+
+		game.m.boom();	// проверка на "три в ряд"
+		if (!count==0 && game.status.find_row) {game.m.clear_row(1);}
+		else {game.interval.interval_del = setInterval(game.m.clear_row, game.interval.timeClearStep);}
+	}
+
+
+	// отрисовка поля через классы
+	let el;
+	for (let i=0; i<game.fild.x; i++) {
+		for (let j=0; j<game.fild.y; j++) {
+			el = game.selectors.biom_box.children[i].children[j];
+			game.fild.biom[i][j]>0 ? el.classList=`el${game.fild.biom[i][j]}` : el.classList='';
+			(check==2 && game.fild.biom_boom[i][j]==1) ? el.classList.add('del') :'';
+		}
+	}
+	el = null;
 }
-
-
-// export {game};

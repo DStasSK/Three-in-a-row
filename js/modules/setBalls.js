@@ -1,6 +1,4 @@
 // выбор количества заполненных начальных строк
-// import {game} from '../main.js';
-
 game.m.setBalls = function(){
 	clearInterval(game.interval.showMenuOption);
 	game.fild.h = game.selectors.filling.value;
@@ -18,6 +16,3 @@ game.m.setBalls = function(){
 		}
 	}, 900);
 }
-
-
-// export {game};

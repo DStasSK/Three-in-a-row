@@ -2,58 +2,75 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/main.css">
-
 </head>
 <body>
-<div class="game">
+<div id="game" class="game">
+
 	<div class="panel">
-		<div class="panel_btn">
-			<div class="icon info" title="info"><!-- &#9432; --></div>
-			<div class="info_box ani">
-				<div>left<br><span>A & &larr;</span></div>
-				<div>right<br><span>D & &rarr;</span></div>
-				<div>down<br><span>S & &darr;</span></div>
-				<div>pause<br><span class="bsp">&#9141;</span></div>
-				<div>GG<br><span>G</span></div>
-			</div>
+		<div class="icon icon_info" title="info"></div>
+		<div class="score">
+			<div class="score_bg"></div>
+			<div class="score_info"></div>
 		</div>
-
-		<div class="panel_score">
-			<div class="score_bg">000000</div>
-			<div class="score_info">      </div>
-		</div>
-
-		<div class="panel_btn">
-			<div class="icon option" title="options"><!-- &#9881; --></div>
-			<div class="option_box ani">
-				<div class="option_btn_start">NewG<br><span>N</span></div>
-				<div class="option_rows">rows<br>on start</div>
-				<input type="range" min="6" max="10" value="8" class="filling">
-			</div>
-		</div>
+		<div class="icon icon_option" title="options"></div>
 	</div>
 
+
 	<div class="game_box">
+
+		<div class="info_box">
+			<div>left<br>A & &larr;</div>
+			<div>right<br>D & &rarr;</div>
+			<div>down<br>S & &darr;</div>
+			<div>pause<br><div class="info_box__bsp">&#9141;</div></div>
+			<div>stop<br>G</div>
+			<div class="btn_start_i">new<br>N</div>
+		</div>
+
+		<div class="option_box">
+			<div class="option_box__rows">rows<br>on start</div>
+			<input type="range" min="6" max="10" value="6" class="filling">
+		</div>
+
+
 		<div class="fild_box"></div>
 		<div class="biom_box"></div>
 
+
 		<div class="game_menu">
 			<div class="result_message">
+
 				<div class="message"></div>
+
 				<div class="ask">
 					прервать текущую игру?
-					<span class="btn_ask" value="true">да</span>
-					<span class="btn_ask">нет</span>
+					<div>
+						<div class="btn_ask" value="true">да</div>
+						<div class="btn_ask">нет</div>
+					</div>
 				</div>
+
 				<div class="btn_start">Новая игра</div>
+
 			</div>
 		</div>
 
-	</div>
+	</div><!-- game_box -->
 </div>
 
 
 <script src="./js/main.js"></script>
-
+<script src="./js/modules/keys.js"></script>
+<script src="./js/modules/game_live.js"></script>
+<script src="./js/modules/player_arrow.js"></script>
+<script src="./js/modules/showMenu.js"></script>
+<script src="./js/modules/biom_push.js"></script>
+<script src="./js/modules/move_ball.js"></script>
+<script src="./js/modules/addBall.js"></script>
+<script src="./js/modules/find_and_del_row.js"></script>
+<script src="./js/modules/check_score.js"></script>
+<script src="./js/modules/setBalls.js"></script>
+<script src="./js/modules/start_game.js"></script>
+<script src="./js/modules/set_fontSize.js"></script>
 </body>
 </html>

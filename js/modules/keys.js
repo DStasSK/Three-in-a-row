@@ -1,14 +1,5 @@
 // логика клавиш
 
-// import {game} from './start_game.js';
-// import {game} from './game_live.js';
-// import {game} from './player_arrow.js';
-// import {game} from './showMenu.js';
-document.write('<script src="./js/modules/game_live.js"></script>');
-document.write('<script src="./js/modules/player_arrow.js"></script>');
-document.write('<script src="./js/modules/showMenu.js"></script>');
-
-
 game.m.keys = function(event){
 	// console.log('event.key = ', event.key, ' event.keyCode = ', event.keyCode);
 
@@ -67,6 +58,3 @@ game.m.keys = function(event){
 		game.m.to_right();
 	}
 }
-
-
-// export {game};
